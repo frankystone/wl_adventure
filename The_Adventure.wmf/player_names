@@ -1,0 +1,28 @@
+# Automatically created by Widelands bzr8620[trunk] (Debug)
+
+[global]
+packet_version="2"
+
+[player_1]
+name="Guybrush"
+tribe="empire"
+ai=
+closeable="false"
+
+[player_2]
+name="Uburulu"
+tribe="barbarians"
+ai="empty"
+closeable="false"
+
+[player_3]
+name="Madame Auri"
+tribe="empire"
+ai="empty"
+closeable="false"
+
+[player_4]
+name="Poseidon"
+tribe="atlanteans"
+ai=
+closeable="false"
