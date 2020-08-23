@@ -68,10 +68,15 @@ hq:set_workers {
 }
 hq:set_soldiers({0,0,0,0}, 10)
 
-map:place_immovable("reed_ripe", map:get_field(21,13), "tribes")
+map:place_immovable("reedfield_tiny", map:get_field(21,13), "tribes")
 map:place_immovable("grapevine_ripe", map:get_field(20,13), "tribes")
-map:place_immovable("reed_ripe", map:get_field(21,14), "tribes")
-map:place_immovable("grapevine_ripe", map:get_field(20,14), "tribes")
+map:place_immovable("reedfield_tiny", map:get_field(21,14), "tribes")
+
+-- #########################################
+-- Make the place of the old Man a bit nicer
+-- #########################################
+
+run(keep_grape_and_reed)
 
 -- #####################
 -- Initialize Madam Auri
@@ -86,8 +91,8 @@ local v = place_building_in_region(mdm_auri, "atlanteans_guardhouse",
          {map:get_field(2,46)}, 
          {soldier={[{0,0,0,0}]=1}})
 
-connected_road(mdm_auri, v.flag, "r, tr, tr, tr")
-connected_road(mdm_auri, w.flag, "l, tl, tl, tl")
+connected_road("normal", mdm_auri, v.flag, "r, tr, tr, tr")
+connected_road("normal", mdm_auri, w.flag, "l, tl, tl, tl")
 
 mdm_auri:conquer(mdm_auri_sf, 7)
 
@@ -114,18 +119,22 @@ ubu_hq:set_soldiers({0,0,0,0},0)
 uburulu:place_ship(map:get_field(46,18))
 
 local uf1 = uburulu:place_building("barbarians_fishers_hut", map:get_field(44,15), false, true)
-connected_road(uburulu, uf1.flag, "bl, bl, l", true)
+connected_road("normal", uburulu, uf1.flag, "bl, bl, l", true)
 
 local uf2 = uburulu:place_building("barbarians_fishers_hut", map:get_field(41,23), false, true)
-connected_road(uburulu, uf2.flag, "tr,tr, tr, tr, tl, tl", true)
+connected_road("normal", uburulu, uf2.flag, "tr,tr, tr, tr, tl, tl", true)
 
 local ucattlef = uburulu:place_building("barbarians_cattlefarm", map:get_field(42,9), false, true)
-connected_road(uburulu, ucattlef.flag, "bl, br, bl, bl, bl, bl, bl, br, br, r, tr", true)
+connected_road("normal", uburulu, ucattlef.flag, "bl, br, bl, bl, bl, bl, bl, br, br, r, tr", true)
+
+-- Place a building so the scout walks in the right direction
+uburulu:place_building("barbarians_sentry", map:get_field(30,55), false, true)
 
 -- ##################
 -- Initalize Poseidon
 -- ##################
 
-local pos_port = poseidon:place_building("atlanteans_port" ,map:get_field(106,18), false, true)
+poseidon:place_building("hq_poseidon", poseidon_sf, false, true)
+local pos_port = poseidon:place_building("atlanteans_port", map:get_field(106,18), false, true)
 pos_port:set_wares{spidercloth=3, granite=4, log=3, gold=2, planks=3, diamond=1, quartz=1}
 pos_port:set_workers{atlanteans_builder=1}

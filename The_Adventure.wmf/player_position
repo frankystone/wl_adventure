@@ -1,8 +1,8 @@
-# Automatically created by Widelands bzr8620[trunk] (Debug)
+# Automatically created by Widelands r63[b07b2c2@master] (Debug)
 
 [global]
 packet_version="2"
 player_1="8 14"
 player_2="42 17"
 player_3="4 43"
-player_4="106 18"
+player_4="35 102"

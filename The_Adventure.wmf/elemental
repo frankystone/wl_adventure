@@ -1,11 +1,11 @@
-# Automatically created by Widelands bzr8620[trunk] (Debug)
+# Automatically created by Widelands r63[b07b2c2@master] (Debug)
 
 [global]
 packet_version="1"
 map_w="128"
 map_h="128"
 nr_players="4"
-name="The_Adventure"
+name="The_Adventure_test"
 author="kaputtnik"
 descr="This is not a normal widelands game where you have to conquer some enemies... This is more like an adventure where you have to manage your economy and have solve some objectives on a mystical island. If you get a smile on your lips from time to time, the author of this scenario has done his job."
 hint=

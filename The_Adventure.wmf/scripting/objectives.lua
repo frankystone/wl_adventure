@@ -39,6 +39,7 @@ obj_breed_donkeys = {
    body = p(li("Build a donkey farm")..
           li("Build a Farm to feed the young donkeys")..
           li("Build a Well to feed the young donkeys")..
+          li("Build a Stonemason's House to get some Marble Columns")..
           "Keep on breeding donkeys to retain the terrain builded by Uburulu."),
 }
 

@@ -1,3 +1,47 @@
+function intro()
+   local sea = map:get_field(43, 69)
+   local sea_fields = sea:region(6)
+   plr:hide_fields(sea_fields, true)
+   local home = scroll_to_field(sea)
+   sea.terr = "summer_meadow1"
+   local ship = plr:place_ship(sea)
+   sleep(1000)
+   sea.terr = "summer_water"
+   ship:remove()
+   plr:hide_fields(sea_fields, true)
+   sleep(1000)
+   sea.terr = "summer_meadow1"
+   ship = plr:place_ship(sea)
+   sleep(500)
+   sea.terr = "summer_water"
+   ship:remove()
+   plr:hide_fields(sea_fields, true)
+   sleep(500)
+   for i, f in ipairs(sea_fields) do
+      f.terr = "desert_water"
+      if i % 2 == 0 then
+         f.terd = "ice_floes"
+      end
+   end
+   sea.terr = "summer_meadow1"
+   ship = plr:place_ship(sea)
+   sleep(500)
+   ship:remove()
+   plr:hide_fields(sea_fields, true)
+   sleep(1000)
+   for i, f in ipairs(sea_fields) do
+      f.terr = "summer_water"
+      if i % 2 == 0 then
+         f.terd = "desert_water"
+      end
+   end
+   sea.terr = "summer_meadow1"
+   ship = plr:place_ship(sea)
+   sleep(500)
+   ship:remove()
+   plr:hide_fields(sea_fields, true)
+   scroll_to_map_pixel(home)
+end
 
 function find_emerit()
    local emerit_hut = map:get_field(20, 15)
@@ -36,6 +80,7 @@ function build_sawmill()
       sleep(2000)
    end
    o.done = true
+   campaign_message_box(guybrush_explore)
 end
 
 function meeting_uburulu ()
@@ -162,28 +207,54 @@ function breed_donkeys()
       end
    end
    plr:conquer(map:get_field(27,121),6)
-   
+
    message_box_objective(plr,uburulu_after_pray_01)
    message_box_objective(plr,uburulu_after_pray_02)
    campaign_message_box(guybrush_ubu_after_pray_01)
    set_speed(speed)
-   
+
    -- Wait until the player has a donkey farm and a farm
    while #plr:get_buildings("empire_donkeyfarm") < 1 or 
          #plr:get_buildings("empire_farm") < 1 do
       sleep(4000)
    end
-   print("change terrain")
-   while true do
+
+   -- Give Uburulu 10 Donkeys
+   local nr_donkeys_uburulu = 0
+   while nr_donkeys_uburulu < 10 do
       sleep(100000)
       nr_donkeys = hq:get_workers("empire_donkey")
       if nr_donkeys > 0 then
          hq:set_workers("empire_donkey", 0)
          message_box_objective(plr, uburulu_thanks_01)
+         nr_donkeys_uburulu = nr_donkeys_uburulu + 1
       else
+         print('Turn back field: ', fields[4])
          random_raise(fields[4]:region(1), "summer_water", -1)
       end
-   end 
+   end
+   o.done = true
+   run(connect_north_valley)
+end
+
+function connect_north_valley()
+   campaign_message_box(uburulu_thanks_02, 500)
+   campaign_message_box(guybrush_donkeys_02, 1000)
+   campaign_message_box(uburulu_thanks_03, 500)
+   campaign_message_box(guybrush_donkeys_03, 1000)
+   campaign_message_box(uburulu_thanks_04, 1000)
+   campaign_message_box(uburulu_thanks_05, 1000)
+   campaign_message_box(uburulu_thanks_06, 500)
+   campaign_message_box(guybrush_donkeys_04, 1000)
+   campaign_message_box(uburulu_thanks_07, 500)
+   campaign_message_box(guybrush_donkeys_05, 1000)
+   campaign_message_box(uburulu_thanks_08, 500)
+   campaign_message_box(guybrush_donkeys_06, 1000)
+   campaign_message_box(uburulu_thanks_09, 1000)
+   campaign_message_box(guybrush_donkeys_07, 1000)
+   campaign_message_box(uburulu_thanks_10, 1000)
+   campaign_message_box(guybrush_donkeys_08, 1000)
+   campaign_message_box(uburulu_thanks_11, 1000)
 end
 
 function find_amulet()
@@ -260,11 +331,11 @@ function find_translation_shell()
             cur_f = wait_for_roadbuilding_and_scroll(field)
             campaign_message_box(found_shell)
             campaign_message_box(guybrush_check_translation)
+            field.immovable:remove()
             campaign_message_box(no_translation)
             campaign_message_box(guybrush_no_translation)
             scroll_to_map_pixel(cur_f)
             table.remove(fake_shells, i) -- Don't catch this field twice
-            field.immovable:remove()
             set_speed(speed)
          end
       end
@@ -284,6 +355,7 @@ function find_passage()
    local f = map:get_field(29,10)
    local medium_clicked = 0
    while not ( f.owner == plr ) do
+      wl.Game().allow_saving = false
       local w = wl.ui.MapView().windows.field_action
       if w and w.tabs.medium then
          if w.tabs.medium.active then
@@ -292,11 +364,14 @@ function find_passage()
          end
       end
       if medium_clicked == 3 then
-         sleep(500)
+         w:close()
+         -- Following is needed to prevent a crash if autosave just starts 
+         -- after allow_saving is true again
+         w = nil
+         wl.Game().allow_saving = true
          campaign_message_box(guybrush_no_medium_building)
          campaign_message_box(emerit_no_medium_building)
          medium_clicked = 0
-         w:close()
       end
       sleep(500)
    end
@@ -407,11 +482,14 @@ function meet_poseidon()
 end
 
 function main_thread()
-    --reveal_concentric(plr, sf, 13)
+   intro()
+   include "map:scripting/starting_conditions.lua"
+   reveal_concentric(plr, sf, 13)
    run(find_emerit)
    run(meet_mdm_auri)
    run(prevent_attack)
    run(meet_poseidon)
+   -- run(connect_north_valley)
    -- run(breed_donkeys)
 --     place_building_in_region(plr,"empire_shipyard", {map:get_field(113,17)})
 --     place_building_in_region(plr,"empire_port", {map:get_field(114,13)}, {

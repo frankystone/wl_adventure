@@ -86,6 +86,7 @@ end
 
 -- #####################
 -- The emeritus is found
+-- #####################
 emerit_01 = emerit_box({
    title = "An old man",
    body = emeritus("Hihihi",
@@ -260,6 +261,11 @@ emerit_found_passage = emerit_box({
       "I see you have found the passage ..."
       .. paragraphdivider() ..
       " Good luck ... hihihi ..."),
+})
+
+guybrush_explore = guybr_box({
+    body = objective_text("Our sawmill is working...",
+            "now we are able to explore some more of this island.")
 })
 
 -- #################
@@ -648,7 +654,7 @@ uburulu_pray_03 = ubu_box({
 
 uburulu_pray_04 = ubu_box({
    body = ubu_speech("",
-         i("*go hog wild*")
+         i("*goes hog wild*")
          .. paragraphdivider() ..
          b("... koba --- daa --- maho !!!! ")
          ),
@@ -683,6 +689,96 @@ uburulu_thanks_01 = ubu_box({
          "I will praise to keep the land ..."),
    position = "topright",
 })
+
+uburulu_thanks_02 = ubu_box({
+  body = ubu_speech("Many thanks for the donkeys."
+                    , "We have enough now ..."),
+  })
+
+guybrush_donkeys_02 = guybr_box({
+   body = objective_text(i("You're welcome"),"So what about the amulet?"),
+   h = 150,
+   })
+
+uburulu_thanks_03 = ubu_box({
+  body = ubu_no_speech("... Amulet? ..."),
+  })
+
+ guybrush_donkeys_03 = guybr_box({
+   body = objective_text(i("This man drives me crazy ..."), "I asked you about an amulet?"),
+   h = 150,
+   })
+
+uburulu_thanks_04 = ubu_box({
+   body = ubu_no_speech("... hmmm ..."),
+   })
+
+uburulu_thanks_05 = ubu_box({
+   body = ubu_no_speech("... ah ... yes ... the amulet ..."),
+   })
+
+uburulu_thanks_06 = ubu_box({
+   body = ubu_no_speech("... it is not here."),
+   })
+
+guybrush_donkeys_04 = guybr_box({
+   body = p("???"
+            ..paragraphdivider()..
+           "Where is it?"),
+   h = 150,
+   })
+
+uburulu_thanks_07 = ubu_box({
+   body = ubu_no_speech("A fisher has seen some mystic sparkling thing on the coast in the north." ..
+                        "I think this item is what you are searching for."
+                     .. paragraphdivider()..
+                    "What the fisherman told was very interesting but we never go there."),
+   })
+
+guybrush_donkeys_05 = guybr_box({
+   body = p("Why?"),
+   h = 150,
+   })
+
+uburulu_thanks_08 = ubu_box({
+   body = ubu_no_speech("That's an evil place."
+                     .. paragraphdivider()..
+                    "This valley is occupied by a real freak... he has a lot force to control the ocean and we "
+                    .. "don't want him to be angry with us."),
+   })
+
+guybrush_donkeys_06 = guybr_box({
+   body = p("Hm... how do i get into that valley?"),
+   h = 150,
+   })
+
+uburulu_thanks_09 = ubu_box({
+    body = ubu_no_speech("You can't ..."
+                      .. paragraphdivider()..
+                     "There is no connection to that valley, except..."),
+    })
+
+guybrush_donkeys_07 = guybr_box({
+   body = p("Except?"),
+   h = 150,
+   })
+
+uburulu_thanks_10 = ubu_box({
+    body = ubu_no_speech("You have spend so many donkeys which maximized my magic power."
+                      .. paragraphdivider()..
+                     "I can build a land bridge for you, so you can enter that land."),
+    })
+
+guybrush_donkeys_08 = guybr_box({
+   body = b("That would be great!"),
+   h = 150,
+   })
+
+uburulu_thanks_11 = ubu_box({
+    body = ubu_no_speech("But ..."
+                      .. paragraphdivider()..
+                     "You have to swear not to say that i had helped you!"),
+    })
 
 
 -- ################
@@ -838,7 +934,7 @@ poseidon_race_01 = poseidon_box({
 poseidon_race_02 = poseidon_box({
   body = p("Haha, lets see if you could win the race with that canoe."
     ..paragraphdivider()..
-        "We have to wait for my ship to become ready")
+  "We have to wait for my ship to become ready")
 })
 
 poseidon_race_03 = poseidon_box({

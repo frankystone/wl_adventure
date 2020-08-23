@@ -37,6 +37,7 @@ function prevent_attack()
     while true do
         local w = wl.ui.MapView().windows.field_action
         if w and w.buttons.attack then
+            w:close()
             print("Attacking not allowed!")
             if warn_level < 2 then
                 campaign_message_box(no_attack_01)
@@ -48,7 +49,6 @@ function prevent_attack()
                 campaign_message_box(no_attack_03)
                 warn_level = 1
             end
-            w:close()
         end
         sleep(100)
     end
@@ -65,6 +65,7 @@ function check_speed(s)
     end
     return cgs
 end
+
 -- set speed to the value s
 function set_speed(s)
     wl.Game().desired_speed = s
@@ -96,4 +97,26 @@ function map_pixel_to_view_pixel()
       y = map_h - (y * -1)
    end
    return x, y
+end
+
+-- kep old mans environment
+function keep_grape_and_reed()
+   rf_1 = map:get_field(21,13)
+   rf_2 = map:get_field(21,14)
+   gf_1 = map:get_field(20,13)
+   while true do
+      if not rf_1.immovable then
+         print("immovable", rf_1.immovable)
+         map:place_immovable("reedfield_tiny", rf_1, "tribes")
+      end
+      if not gf_1.immovable then
+         print("immovable", gf_1.immovable)
+         map:place_immovable("grapevine_tiny", gf_1, "tribes")
+      end
+      if not rf_2.immovable then
+         print("immovable", rf_2.immovable)
+         map:place_immovable("reedfield_tiny", rf_2, "tribes")
+      end
+      sleep(1000)
+   end
 end
