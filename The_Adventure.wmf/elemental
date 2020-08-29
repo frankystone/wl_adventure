@@ -1,12 +1,12 @@
-# Automatically created by Widelands r63[b07b2c2@master] (Debug)
+# Automatically created by Widelands 1.0~git25[459624c@master] (Release)
 
 [global]
 packet_version="1"
 map_w="128"
 map_h="128"
 nr_players="4"
-name="The_Adventure_test"
+name="The_Adventure"
 author="kaputtnik"
 descr="This is not a normal widelands game where you have to conquer some enemies... This is more like an adventure where you have to manage your economy and have solve some objectives on a mystical island. If you get a smile on your lips from time to time, the author of this scenario has done his job."
 hint=
-tags="artifacts,seafaring"
+tags="artifacts,seafaring,unbalanced"

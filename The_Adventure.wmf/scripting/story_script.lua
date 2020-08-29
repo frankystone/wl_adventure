@@ -110,7 +110,7 @@ function meeting_uburulu ()
    campaign_message_box(soldier_shell, 500)
    wait_for_roadbuilding_and_scroll(map:get_field(28,22))
    -- make sure that the fields are visible
-   local check_field = map:get_field(31,13)
+   local check_field = map:get_field(28,26)
    if check_field.owner ~= plr then
       campaign_message_box(check_shells_00)
    end
@@ -268,13 +268,15 @@ function find_amulet()
 end
 
 function build_scout()
+   print("starting build_scout")
    local o = add_campaign_objective(obj_build_scout)
    local solved = false
-   local wrong_fields = {map:get_field(29,24),
-                        map:get_field(26,24),
-                        map:get_field(25,23),
+   local wrong_fields = {map:get_field(25,19),
+                         map:get_field(26,23),
+                         map:get_field(29,24),
+                         map:get_field(29,26),
    }
-   local right_field = map:get_field(30,27)
+   local right_field = map:get_field(31,29)
 
    while not solved do
       for i, v in ipairs(wrong_fields) do
@@ -305,7 +307,7 @@ function find_translation_shell()
    while o.done == false do
       -- find the translation shell only after all other places are found
       if fake_shells[1] == nil then
-         print("No shells left, ind the right one")
+         print("No shells left, find the right one")
          -- make sure there is no other immovable
          -- on that field
          local map_obj = t_shell.immovable
@@ -327,7 +329,7 @@ function find_translation_shell()
          end
       end
       for i, field in ipairs(fake_shells) do
-         print("search translation shell in field", field.x, field.y)
+         print("search translation shell on field", field.x, field.y)
          if field and plr:sees_field(field) then
             print("found shell at: ", field)
             local speed = check_speed()
@@ -490,7 +492,6 @@ function main_thread()
    reveal_concentric(plr, sf, 13)
    run(find_emerit)
    run(meet_mdm_auri)
-   run(prevent_attack)
    run(meet_poseidon)
    -- run(connect_north_valley)
    -- run(breed_donkeys)

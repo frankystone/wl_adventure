@@ -330,7 +330,7 @@ uburulu_05 = ubu_box({
       .. paragraphdivider() ..
       i("points to a:")
       .. paragraphdivider() ..
-      img("world/immovables/skeleton2/idle.png")
+      img("world/immovables/miscellaneous/skeleton2/idle.png")
       .. paragraphdivider() ..
       i("points to his ears")
       .. paragraphdivider() ..
