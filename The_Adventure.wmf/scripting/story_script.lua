@@ -294,6 +294,7 @@ function build_scout()
 end
 
 function find_translation_shell()
+   print("Start finding translation shell")
    local o = add_campaign_objective(obj_find_translation_shell)
    local t_shell = map:get_field(33,48) -- the translation shell
    local fake_shells = {map:get_field(31,36),
@@ -304,6 +305,7 @@ function find_translation_shell()
    while o.done == false do
       -- find the translation shell only after all other places are found
       if fake_shells[1] == nil then
+         print("No shells left, ind the right one")
          -- make sure there is no other immovable
          -- on that field
          local map_obj = t_shell.immovable
@@ -325,6 +327,7 @@ function find_translation_shell()
          end
       end
       for i, field in ipairs(fake_shells) do
+         print("search translation shell in field", field.x, field.y)
          if field and plr:sees_field(field) then
             print("found shell at: ", field)
             local speed = check_speed()

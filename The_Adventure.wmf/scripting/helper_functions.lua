@@ -31,29 +31,6 @@ function wobble_fields()
     end
 end
 
--- Prevent attacking 
-function prevent_attack()
-    local warn_level = 1
-    while true do
-        local w = wl.ui.MapView().windows.field_action
-        if w and w.buttons.attack then
-            w:close()
-            print("Attacking not allowed!")
-            if warn_level < 2 then
-                campaign_message_box(no_attack_01)
-                warn_level = warn_level + 1
-            elseif warn_level < 3 then
-                campaign_message_box(no_attack_02)
-                warn_level = warn_level + 1
-            elseif warn_level < 5 then
-                campaign_message_box(no_attack_03)
-                warn_level = 1
-            end
-        end
-        sleep(100)
-    end
-end
-
 -- Set game speed to a useful value so message boxes and move functions work as expected
 -- If s is given, set speed to s, otherwise set speed to 1000 (=1x=normal speed)
 -- Returns the current game speed (cgs)

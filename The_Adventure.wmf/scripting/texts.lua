@@ -870,30 +870,6 @@ found_amulet = guybr_box({
    h = 150,
 })
 
--- ####################################
--- If one clicks on a military building
--- ####################################
-no_attack_01 = {
-   title = "You",
-   body = p("Why do i click on an attackble building?"),
-   h = 200,
-   w = 300,
-}
-
-no_attack_02 = {
-   title = "You",
-   body = p_font("size=15", "Why do i click again on an attackble building?"),
-   h = 250,
-   w = 350,
-}
-
-no_attack_03 = {
-   title = "You",
-   body = p_font("size=20", "I should have learned that clicking an attackble building for whatever reason is not possible!!!"),
-   h = 300,
-   w = 380,
-}
-
 -- ###########
 -- Madame Auri
 -- ###########
