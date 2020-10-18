@@ -1,7 +1,7 @@
 return {
    atlanteans = {
       buildings = {
-         "hq_poseidon",
+         { name = "hq_poseidon" }
       }
    }
 }
