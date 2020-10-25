@@ -3,17 +3,17 @@ function intro()
    local sea_fields = sea:region(6)
    plr:hide_fields(sea_fields, true)
    local home = scroll_to_field(sea)
-   sea.terr = "summer_meadow1"
+   sea.terr = "ice"
    local ship = plr:place_ship(sea)
    sleep(1000)
-   sea.terr = "summer_water"
+   sea.terr = "ice"
    ship:remove()
    plr:hide_fields(sea_fields, true)
    sleep(1000)
-   sea.terr = "summer_meadow1"
+   sea.terr = "ice"
    ship = plr:place_ship(sea)
    sleep(500)
-   sea.terr = "summer_water"
+   sea.terr = "ice"
    ship:remove()
    plr:hide_fields(sea_fields, true)
    sleep(500)
@@ -23,7 +23,7 @@ function intro()
          f.terd = "ice_floes"
       end
    end
-   sea.terr = "summer_meadow1"
+   sea.terr = "ice"
    ship = plr:place_ship(sea)
    sleep(500)
    ship:remove()
@@ -35,7 +35,7 @@ function intro()
          f.terd = "desert_water"
       end
    end
-   sea.terr = "summer_meadow1"
+   sea.terr = "ice"
    ship = plr:place_ship(sea)
    sleep(500)
    ship:remove()
@@ -127,11 +127,11 @@ function meeting_uburulu ()
    for i, v in ipairs(shell_ims) do
       if v and v.descr.name == "skeleton2" then
          v:remove()
+         campaign_message_box(check_shells_02, 500)
+         campaign_message_box(check_shells_03, 500)
       end
       sleep(1000)
    end
-   campaign_message_box(check_shells_02, 500)
-   campaign_message_box(check_shells_03, 500)
    campaign_message_box(guybrush_ubu_07, 500)
    run(build_scout)
    set_speed(speed)
@@ -184,7 +184,7 @@ function breed_donkeys()
    plr:reveal_fields(map:get_field(27,121):region(6))
    local sf = wait_for_roadbuilding_and_scroll(map:get_field(27,122))
    sleep(1000)
-   message_box_objective(plr, uburulu_pray_01)
+   campaign_message_box( uburulu_pray_01)
    local fields = {map:get_field(25,123),
                   map:get_field(25,120),
                   map:get_field(27,120),
@@ -199,17 +199,17 @@ function breed_donkeys()
       sleep(100)
       if i == 1 then 
          campaign_message_box(guybrush_ubu_pray_01, 1000)
-         message_box_objective(plr,uburulu_pray_02)
+         campaign_message_box(uburulu_pray_02)
       elseif i == 4 then
-         message_box_objective(plr,uburulu_pray_03)
+         campaign_message_box(uburulu_pray_03)
       elseif i == 6 then
-         message_box_objective(plr,uburulu_pray_04)
+         campaign_message_box(uburulu_pray_04)
       end
    end
    plr:conquer(map:get_field(27,121),6)
 
-   message_box_objective(plr,uburulu_after_pray_01)
-   message_box_objective(plr,uburulu_after_pray_02)
+   campaign_message_box(uburulu_after_pray_01)
+   campaign_message_box(uburulu_after_pray_02)
    campaign_message_box(guybrush_ubu_after_pray_01)
    set_speed(speed)
 
@@ -226,7 +226,7 @@ function breed_donkeys()
       nr_donkeys = hq:get_workers("empire_donkey")
       if nr_donkeys > 0 then
          hq:set_workers("empire_donkey", 0)
-         message_box_objective(plr, uburulu_thanks_01)
+         campaign_message_box( uburulu_thanks_01)
          nr_donkeys_uburulu = nr_donkeys_uburulu + 1
       else
          print('Turn back field: ', fields[4])
@@ -488,6 +488,7 @@ end
 
 function main_thread()
    intro()
+   -- Needs to be included here,otherwise the payer sees to many of the map 
    include "map:scripting/starting_conditions.lua"
    reveal_concentric(plr, sf, 13)
    run(find_emerit)

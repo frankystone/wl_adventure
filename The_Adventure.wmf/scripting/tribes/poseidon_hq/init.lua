@@ -1,4 +1,3 @@
-tribes = wl.Tribes()
 --dirname = "map:scripting/tribes/poseidon_hq/"
 dirname = "tribes/buildings/trainingsites/atlanteans/labyrinth/"
 --local dirname = path.dirname(__file__)

@@ -34,8 +34,9 @@ function ubu_box(t)
    if not t["title"] then t["title"] = "Uburulu" end
    if not t["w"] then t["w"] = 350 end
    if not t["h"] then t["h"] = 320 end
-   if not t["posy"] then t["posy"] = 1 end
-   if not t["posx"] then t["posx"] = 200 end
+   --if not t["posy"] then t["posy"] = 1 end
+   --if not t["posx"] then t["posx"] = 200 end
+   if not t["position"] then t["position"] = "topright"
    return t
 end
 
@@ -43,8 +44,9 @@ function soldier_box(t)
    if not t["title"] then t["title"] = "A Soldier" end
    if not t["w"] then t["w"] = 300 end
    if not t["h"] then t["h"] = 200 end
-   if not t["posy"] then t["posy"] = 1 end
-   if not t["posx"] then t["posx"] = 400 end
+   --if not t["posy"] then t["posy"] = 1 end
+   --if not t["posx"] then t["posx"] = 400 end
+   if not t["position"] then t["position"] = "bottom"
    return t
 end
 
@@ -52,8 +54,9 @@ function emerit_box(t)
    if not t["title"] then t["title"] = "Emeritus" end
    if not t["w"] then t["w"] = 350 end
    if not t["h"] then t["h"] = 330 end
-   if not t["posy"] then t["posy"] = 1 end
-   if not t["posx"] then t["posx"] = 200 end
+   --if not t["posy"] then t["posy"] = 1 end
+   --if not t["posx"] then t["posx"] = 200 end
+   if not t["position"] then t["position"] = "topright"
    return t
 end
 
@@ -61,8 +64,9 @@ function guybr_box(t)
    t["title"] = "You"
    if not t["w"] then t["w"] = 300 end
    if not t["h"] then t["h"] = 320 end
-   if not t["posy"] then t["posy"] = 1 end
+   --if not t["posy"] then t["posy"] = 1 end
    --if not t["posx"] then t["posx"] = 200 end
+   if not t["position"] then t["position"] = "topleft"
    return t
 end
 
@@ -70,8 +74,9 @@ function mdm_auri_box(t)
    if not t["title"] then t["title"] = "Mdm Auri" end
    if not t["w"] then t["w"] = 350 end
    if not t["h"] then t["h"] = 320 end
-   if not t["posy"] then t["posy"] = 1 end
+   --if not t["posy"] then t["posy"] = 1 end
    --if not t["posx"] then t["posx"] = 200 end
+   if not t["position"] then t["position"] = "topright"
    return t
 end
 
@@ -79,8 +84,9 @@ function poseidon_box(t)
    if not t["title"] then t["title"] = "Poseidon" end
    if not t["w"] then t["w"] = 350 end
    if not t["h"] then t["h"] = 300 end
-   if not t["posy"] then t["posy"] = 1 end
-   if not t["posx"] then t["posx"] = 200 end
+   --if not t["posy"] then t["posy"] = 1 end
+   --if not t["posx"] then t["posx"] = 200 end
+   if not t["position"] then t["position"] = "topright"
    return t
 end
 
@@ -275,8 +281,6 @@ uburulu_01 = ubu_box({
    title = "Strange person",
    body = ubu_speech("","Gada aga ubu?"),
    w = 350,
-   posy = 1,
-   posx = 200,
    })
 
 guybrush_ubu_01 = guybr_box({
@@ -396,7 +400,7 @@ uburulu_t_00 = ubu_box({
          li_image("map:uburulu.png",
       i("points to the:")
       .. paragraphdivider() ..
-      img("world/immovables/skeleton2/idle.png")
+      img("world/immovables/miscellaneous/skeleton2/idle.png")
       .. paragraphdivider() ..
       "Uburulu!"
       )
