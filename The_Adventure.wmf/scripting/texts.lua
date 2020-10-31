@@ -36,7 +36,7 @@ function ubu_box(t)
    if not t["h"] then t["h"] = 320 end
    --if not t["posy"] then t["posy"] = 1 end
    --if not t["posx"] then t["posx"] = 200 end
-   if not t["position"] then t["position"] = "topright"
+   if not t["position"] then t["position"] = "topright" end
    return t
 end
 
@@ -46,7 +46,7 @@ function soldier_box(t)
    if not t["h"] then t["h"] = 200 end
    --if not t["posy"] then t["posy"] = 1 end
    --if not t["posx"] then t["posx"] = 400 end
-   if not t["position"] then t["position"] = "bottom"
+   if not t["position"] then t["position"] = "bottom" end
    return t
 end
 
@@ -56,7 +56,7 @@ function emerit_box(t)
    if not t["h"] then t["h"] = 330 end
    --if not t["posy"] then t["posy"] = 1 end
    --if not t["posx"] then t["posx"] = 200 end
-   if not t["position"] then t["position"] = "topright"
+   if not t["position"] then t["position"] = "topright" end
    return t
 end
 
@@ -66,7 +66,7 @@ function guybr_box(t)
    if not t["h"] then t["h"] = 320 end
    --if not t["posy"] then t["posy"] = 1 end
    --if not t["posx"] then t["posx"] = 200 end
-   if not t["position"] then t["position"] = "topleft"
+   if not t["position"] then t["position"] = "topleft" end
    return t
 end
 
@@ -76,7 +76,7 @@ function mdm_auri_box(t)
    if not t["h"] then t["h"] = 320 end
    --if not t["posy"] then t["posy"] = 1 end
    --if not t["posx"] then t["posx"] = 200 end
-   if not t["position"] then t["position"] = "topright"
+   if not t["position"] then t["position"] = "topright" end
    return t
 end
 
@@ -86,7 +86,7 @@ function poseidon_box(t)
    if not t["h"] then t["h"] = 300 end
    --if not t["posy"] then t["posy"] = 1 end
    --if not t["posx"] then t["posx"] = 200 end
-   if not t["position"] then t["position"] = "topright"
+   if not t["position"] then t["position"] = "topright" end
    return t
 end
 
