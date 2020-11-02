@@ -3,6 +3,7 @@ include "scripting/infrastructure.lua"
 include "scripting/messages.lua"
 include "scripting/ui.lua"
 include "scripting/field_animations.lua"
+include "scripting/training_wheels/utils/ui.lua"
 
 plr = wl.Game().players[1]
 uburulu = wl.Game().players[2]

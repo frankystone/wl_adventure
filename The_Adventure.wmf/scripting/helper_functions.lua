@@ -66,6 +66,9 @@ function map_pixel_to_view_pixel()
    local map_w = (wl.Game().map.width - 1) * 64
    local map_h = (wl.Game().map.height - 1) * 32
    local x = wl.ui.MapView().center_map_pixel.x - map_w
+   print("Map width: ", wl.Game().map.width)
+   print("Map height: ", wl.Game().map.height)
+   print("x", x)
    if x < 0 then
       x = map_w + x
    end

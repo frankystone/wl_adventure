@@ -1,30 +1,48 @@
 function intro()
-   local sea = map:get_field(43, 69)
-   local sea_fields = sea:region(6)
-   plr:hide_fields(sea_fields, true)
-   local home = scroll_to_field(sea)
-   sea.terr = "ice"
-   local ship = plr:place_ship(sea)
-   sleep(1000)
-   sea.terr = "ice"
+   local ship_field = map:get_field(42, 67)
+   local sea_fields = ship_field:region(9)
+   --plr:hide_fields(sea_fields, true)
+   print("Ship field: ", ship_field.x, ship_field.y)
+   local home = scroll_to_field(ship_field)
+   local yell = {title = "",
+                 body = p("ARGHHH"),
+                 modal = false,
+                 w = 200,
+                 h = 100,
+                 posx = 300,
+                 posy = 200
+                }
+   campaign_message_box(yell)
+   sleep(500)
+   ship_field.terr = "ice"
+   local ship = plr:place_ship(ship_field)
+   reveal_fields(sea_fields)
+   sleep(1500)
+   close_story_messagebox()
+   --ship_field.terr = "ice"
    ship:remove()
    plr:hide_fields(sea_fields, true)
    sleep(1000)
-   sea.terr = "ice"
-   ship = plr:place_ship(sea)
-   sleep(500)
-   sea.terr = "ice"
+   yell["posx"] = 500
+   yell["posy"] = 300
+   yell["body"] = p("Uih Uih UiH")
+   --ship_field.terr = "ice"
+   campaign_message_box(yell)
+   ship = plr:place_ship(ship_field)
+   sleep(1000)
+   --ship_field.terr = "ice"
+   close_story_messagebox()
    ship:remove()
    plr:hide_fields(sea_fields, true)
-   sleep(500)
+   sleep(1000)
    for i, f in ipairs(sea_fields) do
       f.terr = "desert_water"
       if i % 2 == 0 then
          f.terd = "ice_floes"
       end
    end
-   sea.terr = "ice"
-   ship = plr:place_ship(sea)
+   ship_field.terr = "ice"
+   ship = plr:place_ship(ship_field)
    sleep(500)
    ship:remove()
    plr:hide_fields(sea_fields, true)
@@ -35,8 +53,8 @@ function intro()
          f.terd = "desert_water"
       end
    end
-   sea.terr = "ice"
-   ship = plr:place_ship(sea)
+   ship_field.terr = "ice"
+   ship = plr:place_ship(ship_field)
    sleep(500)
    ship:remove()
    plr:hide_fields(sea_fields, true)

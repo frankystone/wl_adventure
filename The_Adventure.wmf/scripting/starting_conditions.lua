@@ -68,13 +68,14 @@ hq:set_workers {
 }
 hq:set_soldiers({0,0,0,0}, 10)
 
-map:place_immovable("reedfield_tiny", map:get_field(21,13), "tribes")
-map:place_immovable("grapevine_ripe", map:get_field(20,13), "tribes")
-map:place_immovable("reedfield_tiny", map:get_field(21,14), "tribes")
 
 -- #########################################
 -- Make the place of the old Man a bit nicer
 -- #########################################
+
+map:place_immovable("reedfield_tiny", map:get_field(21,13), "tribes")
+map:place_immovable("grapevine_ripe", map:get_field(20,13), "tribes")
+map:place_immovable("reedfield_tiny", map:get_field(21,14), "tribes")
 
 run(keep_grape_and_reed)
 
@@ -128,7 +129,7 @@ local ucattlef = uburulu:place_building("barbarians_cattlefarm", map:get_field(4
 connected_road("normal", uburulu, ucattlef.flag, "bl, br, bl, bl, bl, bl, bl, br, br, r, tr", true)
 
 -- Place a building so the scout walks in the right direction
-uburulu:place_building("barbarians_sentry", map:get_field(30,55), false, true)
+--uburulu:place_building("barbarians_sentry", map:get_field(30,55), false, true)
 
 -- ##################
 -- Initalize Poseidon
