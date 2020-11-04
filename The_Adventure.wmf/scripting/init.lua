@@ -30,4 +30,4 @@ include "map:scripting/helper_functions.lua"
 include "map:scripting/texts.lua"
 include "map:scripting/objectives.lua"
 include "map:scripting/story_script.lua"
-
+include "map:scripting/tests.lua"

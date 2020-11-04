@@ -45,8 +45,14 @@ obj_breed_donkeys = {
 
 obj_build_ship = {
    name = "build_ship",
-   title = "Build a ship to make the race against Poseidon",
+   title = "Build a ship preparing a regatta against Poseidon",
    body = p("You will need to produce some wares to get a ship:"..
          li("Cloth: ")..
          li("Gold: ")),
 }
+
+obj_regatta = {
+   name = "win_regatta",
+   title = "Win the sailing regatta against Poseidon",
+   body = p("Sail the sea and try to build a port before Poseidon build it!")
+   }

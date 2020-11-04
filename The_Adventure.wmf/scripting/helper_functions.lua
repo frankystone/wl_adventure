@@ -1,3 +1,11 @@
+-- Returns a table with x,y coordinates of the
+-- current window center
+-- Needs to be integers, so math.floor()
+function window_center()
+   local w = wl.ui.MapView()
+   return {x = math.floor(w.width/2), y = math.floor(w.height/2)}
+end
+
 -- Raises and lowers a field until no building is on it
 function wobble_field(f, v)
     local h = f.height
@@ -35,7 +43,7 @@ end
 -- If s is given, set speed to s, otherwise set speed to 1000 (=1x=normal speed)
 -- Returns the current game speed (cgs)
 function check_speed(s)
-    cgs = wl.Game().real_speed -- CurrentGameSpeed
+    local cgs = wl.Game().real_speed -- CurrentGameSpeed
     s = s or 1000
     if cgs > s then
         set_speed(s)
@@ -66,9 +74,6 @@ function map_pixel_to_view_pixel()
    local map_w = (wl.Game().map.width - 1) * 64
    local map_h = (wl.Game().map.height - 1) * 32
    local x = wl.ui.MapView().center_map_pixel.x - map_w
-   print("Map width: ", wl.Game().map.width)
-   print("Map height: ", wl.Game().map.height)
-   print("x", x)
    if x < 0 then
       x = map_w + x
    end
@@ -81,21 +86,21 @@ end
 
 -- kep old mans environment
 function keep_grape_and_reed()
-   rf_1 = map:get_field(21,13)
-   rf_2 = map:get_field(21,14)
-   gf_1 = map:get_field(20,13)
+   local rf_1 = map:get_field(21,13)
+   local rf_2 = map:get_field(21,14)
+   local gf_1 = map:get_field(20,13)
    while true do
       if not rf_1.immovable then
          print("immovable", rf_1.immovable)
-         map:place_immovable("reedfield_tiny", rf_1, "tribes")
+         map:place_immovable("reedfield_tiny", rf_1)
       end
       if not gf_1.immovable then
          print("immovable", gf_1.immovable)
-         map:place_immovable("grapevine_tiny", gf_1, "tribes")
+         map:place_immovable("grapevine_tiny", gf_1)
       end
       if not rf_2.immovable then
          print("immovable", rf_2.immovable)
-         map:place_immovable("reedfield_tiny", rf_2, "tribes")
+         map:place_immovable("reedfield_tiny", rf_2)
       end
       sleep(1000)
    end

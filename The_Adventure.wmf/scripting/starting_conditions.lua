@@ -73,9 +73,9 @@ hq:set_soldiers({0,0,0,0}, 10)
 -- Make the place of the old Man a bit nicer
 -- #########################################
 
-map:place_immovable("reedfield_tiny", map:get_field(21,13), "tribes")
-map:place_immovable("grapevine_ripe", map:get_field(20,13), "tribes")
-map:place_immovable("reedfield_tiny", map:get_field(21,14), "tribes")
+map:place_immovable("reedfield_tiny", map:get_field(21,13))
+map:place_immovable("grapevine_ripe", map:get_field(20,13))
+map:place_immovable("reedfield_tiny", map:get_field(21,14))
 
 run(keep_grape_and_reed)
 
@@ -136,6 +136,6 @@ connected_road("normal", uburulu, ucattlef.flag, "bl, br, bl, bl, bl, bl, bl, br
 -- ##################
 
 poseidon:place_building("hq_poseidon", poseidon_sf, false, true)
-local pos_port = poseidon:place_building("atlanteans_port", map:get_field(106,18), false, true)
-pos_port:set_wares{spidercloth=3, granite=4, log=3, gold=2, planks=3, diamond=1, quartz=1}
-pos_port:set_workers{atlanteans_builder=1}
+poseidon_port = poseidon:place_building("atlanteans_port", map:get_field(106,18), false, true)
+poseidon_port:set_wares{spidercloth=3, granite=4, log=3, gold=2, planks=3, diamond=1, quartz=1}
+poseidon_port:set_workers{atlanteans_builder=1}

@@ -1,4 +1,6 @@
 function intro()
+   local window_center = window_center()
+   print(window_center.x, window_center.y)
    local ship_field = map:get_field(42, 67)
    local sea_fields = ship_field:region(9)
    --plr:hide_fields(sea_fields, true)
@@ -9,32 +11,29 @@ function intro()
                  modal = false,
                  w = 200,
                  h = 100,
-                 posx = 300,
-                 posy = 200
+                 posx = window_center.x - 200,
+                 posy = window_center.y - 200
                 }
    campaign_message_box(yell)
-   sleep(500)
+   sleep(200)
    ship_field.terr = "ice"
    local ship = plr:place_ship(ship_field)
-   reveal_fields(sea_fields)
-   sleep(1500)
+   plr:reveal_fields(sea_fields)
+   sleep(1800)
    close_story_messagebox()
-   --ship_field.terr = "ice"
    ship:remove()
    plr:hide_fields(sea_fields, true)
    sleep(1000)
-   yell["posx"] = 500
-   yell["posy"] = 300
+   yell["posx"] = window_center.x + 200
+   yell["posy"] = window_center.y - 200
    yell["body"] = p("Uih Uih UiH")
-   --ship_field.terr = "ice"
    campaign_message_box(yell)
    ship = plr:place_ship(ship_field)
-   sleep(1000)
-   --ship_field.terr = "ice"
+   sleep(2000)
    close_story_messagebox()
    ship:remove()
    plr:hide_fields(sea_fields, true)
-   sleep(1000)
+   sleep(2000)
    for i, f in ipairs(sea_fields) do
       f.terr = "desert_water"
       if i % 2 == 0 then
@@ -43,7 +42,7 @@ function intro()
    end
    ship_field.terr = "ice"
    ship = plr:place_ship(ship_field)
-   sleep(500)
+   sleep(1000)
    ship:remove()
    plr:hide_fields(sea_fields, true)
    sleep(1000)
@@ -55,7 +54,7 @@ function intro()
    end
    ship_field.terr = "ice"
    ship = plr:place_ship(ship_field)
-   sleep(500)
+   sleep(1000)
    ship:remove()
    plr:hide_fields(sea_fields, true)
    scroll_to_map_pixel(home)
@@ -347,7 +346,6 @@ function find_translation_shell()
          end
       end
       for i, field in ipairs(fake_shells) do
-         print("search translation shell on field", field.x, field.y)
          if field and plr:sees_field(field) then
             print("found shell at: ", field)
             local speed = check_speed()
@@ -355,6 +353,7 @@ function find_translation_shell()
             campaign_message_box(found_shell)
             campaign_message_box(guybrush_check_translation)
             field.immovable:remove()
+            sleep(200)
             campaign_message_box(no_translation)
             campaign_message_box(guybrush_no_translation)
             scroll_to_map_pixel(cur_f)
@@ -364,9 +363,9 @@ function find_translation_shell()
       end
       -- Maybe we ran out of rations before we have found the right shell
       -- make sure there is at least one ration in the headquarters
-      if sf.immovable:get_wares("ration") == 0 then
+      if hq:get_wares("ration") == 0 then
          print("No ration left, add one.")
-         sf.immovable:set_wares("ration", 1)
+         hq:set_wares("ration", 1)
       end
       sleep(1000)
    end
@@ -445,15 +444,19 @@ function meet_poseidon()
    local cf = wait_for_roadbuilding_and_scroll(poseidon_sf)
    campaign_message_box(poseidon_01)
    scroll_to_map_pixel(cf)
+   run(prepare_ship)
+end
 
+function perpare_ship()
+   local o = add_campaign_objective(obj_build_ship)
    -- As long we have no ship we do nothing
    while #plr:get_ships() < 1 do
       sleep(4000)
    end
 
    local plr_ship = plr:get_ships()[1]
-   local cf = wait_for_roadbuilding_and_scroll(poseidon_sf)
-   campaign_message_box(poseidon_race_01)
+   cf = wait_for_roadbuilding_and_scroll(poseidon_sf)
+   campaign_message_box(poseidon_regatta_01)
    campaign_message_box({
       title = "You", 
       body = p("Captin Guybrush proudly presents:"
@@ -462,24 +465,30 @@ function meet_poseidon()
          .. paragraphdivider() ..
          img("tribes/ships/empire/sail_e_00.png")
          .. paragraphdivider() ..
-         "With this ship i will win the race!"),
+         "With this ship i will win the regatta!"),
          posy = 1,
          posx = 1,
          w = 300,
          h = 320,
    })
 
-   campaign_message_box(poseidon_race_02)
-   -- Start an expedition in the port of poseidon
-   poseidon_sf.immovable:start_expedition()
+   campaign_message_box(poseidon_regatta_02)
    scroll_to_map_pixel(cf)
 
    -- Captain Guybrush is ready for the race if the ship waits for an expedition
    while plr_ship.state ~= "exp_waiting" do
       sleep(2000)
    end
+   o.done = true
+   run(regatta, plr_ship)
+end
 
-   -- Place the ship of poseidon and wait for scouting mode
+function regatta(plr_ship)
+   print("plar_ship", plr_ship.state)
+   local o = add_campaign_objective(obj_regatta)
+   --Start an expedition in the port of poseidon
+   poseidon_port:start_expedition()
+   --Place the ship of poseidon and wait for scouting mode
    local po_ship = poseidon:place_ship(map:get_field(99,8))
    while po_ship.state ~= "exp_scouting" do
       if plr_ship.state ~= "exp_waiting" then
@@ -490,44 +499,46 @@ function meet_poseidon()
       sleep(500)
    end
    
-   -- Now poseidon is also ready
-   wait_for_roadbuilding_and_scroll(poseidon_sf)
-   campaign_message_box(poseidon_race_03)
+   --Now poseidon is also ready
+   local cf = wait_for_roadbuilding_and_scroll(poseidon_sf)
+
+   campaign_message_box(poseidon_regatta_03)
+   scroll_to_map_pixel(cf)
    
-   -- The race starts now
+   --The regatta starts now
+   local finish = map:get_field(72,52)
+   local won = false
    while true do 
-      if plr:sees_field(map:get_field(68,51)) then
+     if plr:sees_field(finish) then
+        break
+     end
+      if finish.owner == poseidon then
+         campaign_message_box(poseidon_regatta_04)
+         break
+      elseif finish.owner == plr then
+         campaign_message_box(poseidon_regatta_05)
+         won = true
          break
       end
-      sleep(200)
+      sleep(400)
    end
-   campaign_message_box(poseidon_race_20)
+   
+   if won then
+      campaign_message_box(poseidon_regatta_20)
+      o.done = true
+   else
+      o.done = false
+   end
 end
 
 function main_thread()
-   intro()
+   --intro()
    -- Needs to be included here,otherwise the payer sees to many of the map 
    include "map:scripting/starting_conditions.lua"
    reveal_concentric(plr, sf, 13)
    run(find_emerit)
    run(meet_mdm_auri)
-   run(meet_poseidon)
-   -- run(connect_north_valley)
-   -- run(breed_donkeys)
---     place_building_in_region(plr,"empire_shipyard", {map:get_field(113,17)})
---     place_building_in_region(plr,"empire_port", {map:get_field(114,13)}, {
---       wares = {
---         cloth=7, 
---         gold=2, 
---         marble_column=1, 
---         marble=2,
---         planks=15,
---         log=5,
---       }
---     })
-    --pbr = function(x,y)
-    --  place_building_in_region(plr, "empire_sentry", {map:get_field(x,y)})
-    --  end
+   --run(meet_poseidon)
 end
 
 run(main_thread)

@@ -897,7 +897,7 @@ mdm_auri_bad_01 = mdm_auri_box({
 -- #########
 poseidon_01 = poseidon_box({
   title = "",
-  body = p("Ah, finally a new rival for a ship race!")
+  body = p("Ah, finally a new rival for a regatta!")
 })
 
 gb_po_01 = guybr_box({
@@ -905,26 +905,33 @@ gb_po_01 = guybr_box({
    
 })
 
-poseidon_race_01 = poseidon_box({
+poseidon_regatta_01 = poseidon_box({
   body = p("I see you have managed to build a .. hmm ... what is that? ")
 })
 
 -- Message of Guybrush is in story_script.lua
 
-poseidon_race_02 = poseidon_box({
+poseidon_regatta_02 = poseidon_box({
   body = p("Haha, lets see if you could win the race with that canoe."
     ..paragraphdivider()..
   "We have to wait for my ship to become ready")
 })
 
-poseidon_race_03 = poseidon_box({
+poseidon_regatta_03 = poseidon_box({
   body = p("I am ready now. Let's go?")
 })
 
-poseidon_race_20 = poseidon_box({
-  body = p("You have won or not.")
+poseidon_regatta_04 = poseidon_box({
+  body = p("Haha, you will never win a regatta against me!")
+})
+poseidon_regatta_05 = poseidon_box({
+   body = p("ARGGHHH... i have to admit you were better than me.")
 })
 
-poseidon_warn_01 = {
+poseidon_regatta_20 = poseidon_box({
+  body = p("Such a mess!!!")
+})
+
+poseidon_warn_01 = poseidon_box{
   body = p("You have cheated! I am sorry but in this case you have lost the race and your ship!")
 }
