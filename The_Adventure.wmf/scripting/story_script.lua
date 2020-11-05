@@ -442,7 +442,24 @@ function meet_poseidon()
       sleep(4000)
    end
    local cf = wait_for_roadbuilding_and_scroll(poseidon_sf)
-   campaign_message_box(poseidon_01)
+   campaign_message_box(poseidon_01, 500)
+   campaign_message_box(gb_poseidon_01, 500)
+   campaign_message_box(poseidon_02, 500)
+   local regatta_course = {map:get_field(109, 12),
+                           map:get_field(103,4),
+                           map:get_field(94, 119),
+                           map:get_field(89, 111),
+                           map:get_field(81, 113),
+                           map:get_field(80, 124),
+                           map:get_field(76, 12),
+                           map:get_field(73, 28),
+                           map:get_field(72, 43)
+                          }
+   for i = 1, #regatta_course do
+      scroll_to_field(regatta_course[i])
+      reveal_concentric(plr, regatta_course[i],7)
+      sleep(1000)
+   end
    scroll_to_map_pixel(cf)
    run(prepare_ship)
 end
@@ -484,14 +501,14 @@ function perpare_ship()
 end
 
 function regatta(plr_ship)
-   print("plar_ship", plr_ship.state)
    local o = add_campaign_objective(obj_regatta)
    --Start an expedition in the port of poseidon
    poseidon_port:start_expedition()
    --Place the ship of poseidon and wait for scouting mode
    local po_ship = poseidon:place_ship(map:get_field(99,8))
    while po_ship.state ~= "exp_scouting" do
-      if plr_ship.state ~= "exp_waiting" then
+      if plr_ship.state == "exp_scouting" then
+         -- The player has started the expedition before poseidon
          campaign_message_box(poseidon_warn_01)
          plr_ship:remove()
          break
@@ -509,9 +526,6 @@ function regatta(plr_ship)
    local finish = map:get_field(72,52)
    local won = false
    while true do 
-     if plr:sees_field(finish) then
-        break
-     end
       if finish.owner == poseidon then
          campaign_message_box(poseidon_regatta_04)
          break

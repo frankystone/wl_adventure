@@ -900,9 +900,15 @@ poseidon_01 = poseidon_box({
   body = p("Ah, finally a new rival for a regatta!")
 })
 
-gb_po_01 = guybr_box({
-   body = "",
+gb_poseidon_01 = guybr_box({
+   body = p("Yeah, a regatta is just what i need!"),
    
+})
+poseidon_02 = poseidon_box({
+   title = "",
+   body = p("Very good!" ..
+            paragraphdivider ..
+           "Let me show you the regatta course...")
 })
 
 poseidon_regatta_01 = poseidon_box({

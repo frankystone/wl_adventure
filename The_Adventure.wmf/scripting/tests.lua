@@ -1,3 +1,10 @@
+-- Some tests which can be run through the debug console in a
+-- debug build.
+-- Note: 
+-- Some functions need to be run as a coroutine
+-- Some functions need commenting starting coroutines in story_script.lua
+
+-- Helping function
 pbr = function(x,y, building, opts)
    return place_building_in_region(plr, building, {map:get_field(x,y)}, opts)
 end
@@ -19,6 +26,37 @@ function test_mdm_auri_scroll()
    pbr(11,43, "empire_sentry",{soldier={[{0,0,0,0}]=1}})
 end
 
+-- run(test_meet_poseidon)
+function test_meet_poseidon()
+   local f = map:get_field(114, 13)
+   scroll_to_field(f)
+   local ship_y = pbr(114,17,
+                      "empire_shipyard")
+   
+end
+
+-- run(test_regatta_course)
+-- Comment run(meet_poseidon) in story_script.lua
+function test_regatta_course()
+   local regatta_course = {map:get_field(109, 12),
+                           map:get_field(103,4),
+                           map:get_field(94, 119),
+                           map:get_field(89, 111),
+                           map:get_field(81, 113),
+                           map:get_field(80, 124),
+                           map:get_field(76, 12),
+                           map:get_field(73, 28),
+                           map:get_field(72, 43)
+                          }
+   for i = 1, #regatta_course do
+      scroll_to_field(regatta_course[i])
+      reveal_concentric(plr, regatta_course[i],7)
+      sleep(1000)
+   end
+end
+
+-- run(test_prepare_ship)
+-- Comment run(meet_poseidon) in story_script.lua
 function test_prepare_ship()
    local f = map:get_field(114, 13)
    scroll_to_field(f)
@@ -50,9 +88,11 @@ function test_prepare_ship()
    port:start_expedition()
 end
 
+-- run(test_regatta)
+-- Comment run(meet_poseidon) in story_script.lua
 function test_regatta()
    local f = map:get_field(114, 13)
-   --scroll_to_field(f)
+   scroll_to_field(f)
    local port = pbr(114, 13,
               "empire_port", 
               {wares = {
@@ -71,6 +111,5 @@ function test_regatta()
              )
    port:start_expedition()
    plr_ship = plr:place_ship(map:get_field(111,11))
-   print("Leaving test_regatta", plr_ship.state)
    run(regatta, plr_ship)
 end
