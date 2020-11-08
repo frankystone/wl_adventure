@@ -1,11 +1,44 @@
 function intro()
+   local flash_1 = {map:get_field(39,55),
+                    map:get_field(39,57),
+                    map:get_field(40,56),
+                    map:get_field(40,58),
+                    map:get_field(40,57),
+                    map:get_field(40,59),
+                    map:get_field(41,58),
+                    map:get_field(41,60),
+                    map:get_field(40,59),
+                    map:get_field(40,60),
+                    map:get_field(39,59),
+                    map:get_field(38,59),
+                    map:get_field(38,61),
+                    map:get_field(39,60),
+                    map:get_field(39,62),
+                    map:get_field(39,61),
+                    map:get_field(39,63),
+                    map:get_field(40,62),
+                    map:get_field(40,64),
+                    map:get_field(40,63)
+                    }
+   local dragon = {map:get_field(42,66),
+                   map:get_field(42,64),
+                   map:get_field(42,65),
+                   map:get_field(42,63),
+                   map:get_field(43,64),--
+                   map:get_field(42,63),
+                   map:get_field(43,63),
+                   map:get_field(44,62),
+                   map:get_field(44,63),
+                   map:get_field(43,62)}
+   
    local window_center = window_center()
-   print(window_center.x, window_center.y)
    local ship_field = map:get_field(42, 67)
    local sea_fields = ship_field:region(9)
-   --plr:hide_fields(sea_fields, true)
-   print("Ship field: ", ship_field.x, ship_field.y)
    local home = scroll_to_field(ship_field)
+   run(snow_storm_start)
+   sleep(2000)
+   let_it_snow = false
+   
    local yell = {title = "",
                  body = p("ARGHHH"),
                  modal = false,
@@ -546,7 +579,7 @@ function regatta(plr_ship)
 end
 
 function main_thread()
-   --intro()
+   intro()
    -- Needs to be included here,otherwise the payer sees to many of the map 
    include "map:scripting/starting_conditions.lua"
    reveal_concentric(plr, sf, 13)

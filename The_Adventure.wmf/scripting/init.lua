@@ -25,9 +25,11 @@ uburulu:set_attack_forbidden(1, true)
 
 -- Global variable for controlling a coroutine
 stop_wobble = false
+let_it_snow = true
 
 include "map:scripting/helper_functions.lua"
 include "map:scripting/texts.lua"
 include "map:scripting/objectives.lua"
 include "map:scripting/story_script.lua"
+include "map:scripting/intro.lua"
 include "map:scripting/tests.lua"

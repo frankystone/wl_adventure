@@ -1,9 +1,36 @@
+math.randomseed(wl.Game().last_save_time)
+   
 -- Returns a table with x,y coordinates of the
 -- current window center
 -- Needs to be integers, so math.floor()
 function window_center()
    local w = wl.ui.MapView()
    return {x = math.floor(w.width/2), y = math.floor(w.height/2)}
+end
+
+-- Return a randomized table of map fields depending 
+-- of the current mapview. 
+-- amount spezifies how many fields will be returned  
+function random_window_fields(amount)
+   local w = wl.ui.MapView()
+   local x_fields = math.floor(w.width/64)
+   local y_fields = math.floor(w.height/32)
+   local fields = {}
+   for x=0, wl.Game().map.width-1 do
+      for y=0, wl.Game().map.height-1 do
+         f = wl.Game().map:get_field(x,y)
+         if wl.ui.MapView():is_visible(f) then
+            table.insert(fields, f)
+         end
+      end
+   end
+   local random_fields = {}
+   while #random_fields < amount do
+      id = math.random(1, #fields)
+      table.insert(random_fields, fields[id])
+      table.remove(fields, id)
+   end
+   return random_fields
 end
 
 -- Raises and lowers a field until no building is on it
@@ -84,7 +111,7 @@ function map_pixel_to_view_pixel()
    return x, y
 end
 
--- kep old mans environment
+-- keep old mans environment
 function keep_grape_and_reed()
    local rf_1 = map:get_field(21,13)
    local rf_2 = map:get_field(21,14)

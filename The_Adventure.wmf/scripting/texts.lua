@@ -906,8 +906,8 @@ gb_poseidon_01 = guybr_box({
 })
 poseidon_02 = poseidon_box({
    title = "",
-   body = p("Very good!" ..
-            paragraphdivider ..
+   body = p("Very good!"
+            ..paragraphdivider()..
            "Let me show you the regatta course...")
 })
 
