@@ -1,5 +1,3 @@
-math.randomseed(wl.Game().last_save_time)
-   
 -- Returns a table with x,y coordinates of the
 -- current window center
 -- Needs to be integers, so math.floor()
@@ -24,6 +22,7 @@ function random_window_fields(amount)
          end
       end
    end
+   math.randomseed(wl.Game().time)
    local random_fields = {}
    while #random_fields < amount do
       id = math.random(1, #fields)
@@ -130,5 +129,36 @@ function keep_grape_and_reed()
          map:place_immovable("reedfield_tiny", rf_2)
       end
       sleep(1000)
+   end
+end
+
+--------------------------------
+-- Functions used for the intro
+-- Show some fields like snowing
+
+-- This coroutine is called for each snowflake
+-- to hide each snowflake after a random time
+function snow_flake(f)
+   sleep(math.random(200,1200))
+   plr:hide_fields({f}, true)
+   f.terd = "summer_water"
+   f.trn.terd = "summer_water"
+   f.tln.terd = "summer_water"
+end
+
+function snow_flakes_start(amount)
+   amount = amount or 20
+   local window_fields = random_window_fields(amount)
+   while let_it_snow == true do
+      for i, field in ipairs(window_fields) do
+         if not plr:sees_field(field) then
+            field.terd = "snow"
+            field.trn.terd = "snow"
+            field.tln.terd = "snow"
+            plr:reveal_fields({field})
+            sleep(500)
+            run(snow_flake, field)
+         end
+      end
    end
 end

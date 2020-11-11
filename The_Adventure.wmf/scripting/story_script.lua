@@ -35,20 +35,38 @@ function intro()
    local ship_field = map:get_field(42, 67)
    local sea_fields = ship_field:region(9)
    local home = scroll_to_field(ship_field)
-   run(snow_storm_start)
+   run(snow_flakes_start, 20)
    sleep(2000)
-   let_it_snow = false
-   
-   local yell = {title = "",
-                 body = p("ARGHHH"),
-                 modal = false,
-                 w = 200,
-                 h = 100,
-                 posx = window_center.x - 200,
-                 posy = window_center.y - 200
-                }
+   local yell = yell_box
+   yell["position"] = "right"
    campaign_message_box(yell)
-   sleep(200)
+   sleep(2000)
+   close_story_messagebox()
+   sleep(2000)
+   yell["body"] = p("... and so dark ...")
+   yell["position"] = "left"
+   campaign_message_box(yell)
+   sleep(2000)
+   close_story_messagebox()
+   sleep(2000)
+   yell["body"] = p("Has anyone knowledge of this territory?")
+   yell["position"] = "top"
+   campaign_message_box(yell)
+   sleep(2000)
+   close_story_messagebox()
+   sleep(2000)
+   yell["body"] = p("I wonder when we will leave this...")
+   yell["position"] = "bottom"
+   let_it_snow = false
+   campaign_message_box(yell)
+   sleep(2000)
+   close_story_messagebox()
+   sleep(6000)
+   yell["body"] = p("ARGGGHHHH")
+   yell["position"] = nil
+   yell["posx"] = window_center.x - 200
+   yell["posy"] = window_center.y - 200
+   campaign_message_box(yell)
    ship_field.terr = "ice"
    local ship = plr:place_ship(ship_field)
    plr:reveal_fields(sea_fields)
@@ -62,6 +80,7 @@ function intro()
    yell["body"] = p("Uih Uih UiH")
    campaign_message_box(yell)
    ship = plr:place_ship(ship_field)
+   plr:reveal_fields(sea_fields)
    sleep(2000)
    close_story_messagebox()
    ship:remove()
@@ -75,6 +94,7 @@ function intro()
    end
    ship_field.terr = "ice"
    ship = plr:place_ship(ship_field)
+   plr:reveal_fields(sea_fields)
    sleep(1000)
    ship:remove()
    plr:hide_fields(sea_fields, true)
@@ -87,6 +107,7 @@ function intro()
    end
    ship_field.terr = "ice"
    ship = plr:place_ship(ship_field)
+   plr:reveal_fields(sea_fields)
    sleep(1000)
    ship:remove()
    plr:hide_fields(sea_fields, true)
