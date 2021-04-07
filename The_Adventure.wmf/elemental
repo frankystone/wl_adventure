@@ -1,12 +1,13 @@
-# Automatically created by Widelands 1.0~git214[e1d8ad3@master] (Debug)
+# Automatically created by Widelands 1.0~git25106[5482285@master] (Debug)
 
 [global]
 packet_version="1"
 map_w="128"
 map_h="128"
 nr_players="4"
-name="The_Adventure"
+name=_"The_Adventure"
 author="kaputtnik"
-descr="This is not a normal widelands game where you have to conquer some enemies... This is more like an adventure where you have to manage your economy and have solve some objectives on a mystical island. If you get a smile on your lips from time to time, the author of this scenario has done his job."
+descr=_"This is not a normal widelands game where you have to conquer some enemies... This is more like an adventure where you have to manage your economy and have solve some objectives on a mystical island. If you get a smile on your lips from time to time, the author of this scenario has done his job."
 hint=
 tags="artifacts,seafaring,unbalanced"
+addons=

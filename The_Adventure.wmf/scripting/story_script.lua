@@ -1,116 +1,90 @@
 function intro()
-   local flash_1 = {map:get_field(39,55),
-                    map:get_field(39,57),
-                    map:get_field(40,56),
-                    map:get_field(40,58),
-                    map:get_field(40,57),
-                    map:get_field(40,59),
-                    map:get_field(41,58),
-                    map:get_field(41,60),
-                    map:get_field(40,59),
-                    map:get_field(40,60),
-                    map:get_field(39,59),
-                    map:get_field(38,59),
-                    map:get_field(38,61),
-                    map:get_field(39,60),
-                    map:get_field(39,62),
-                    map:get_field(39,61),
-                    map:get_field(39,63),
-                    map:get_field(40,62),
-                    map:get_field(40,64),
-                    map:get_field(40,63)
-                    }
-   local dragon = {map:get_field(42,66),
-                   map:get_field(42,64),
-                   map:get_field(42,65),
-                   map:get_field(42,63),
-                   map:get_field(43,64),--
-                   map:get_field(42,63),
-                   map:get_field(43,63),
-                   map:get_field(44,62),
-                   map:get_field(44,63),
-                   map:get_field(43,62)}
-   
    local window_center = window_center()
-   local ship_field = map:get_field(42, 67)
-   local sea_fields = ship_field:region(9)
-   local home = scroll_to_field(ship_field)
-   run(snow_flakes_start, 20)
-   sleep(2000)
+   local home = scroll_to_field(map:get_field(122,109))
+   -- Snowy weather
+   local nr = 30
+   sleep(1500)
+   run(snow_flakes_start, nr)
    local yell = yell_box
-   yell["position"] = "right"
+   yell["posx"] = window_center.x -70
+   yell["posy"] = window_center.y + 300
+   sleep(2000)
    campaign_message_box(yell)
    sleep(2000)
    close_story_messagebox()
-   sleep(2000)
    yell["body"] = p("... and so dark ...")
-   yell["position"] = "left"
+   yell["posx"] = window_center.x - 300
+   yell["posy"] = window_center.y - 300
+   sleep(2000)
    campaign_message_box(yell)
    sleep(2000)
    close_story_messagebox()
+   yell["body"] = p("Does anyone know where we are?")
+   yell["posx"] = window_center.x - 300
+   yell["posy"] = window_center.y + 200
    sleep(2000)
-   yell["body"] = p("Has anyone knowledge of this territory?")
-   yell["position"] = "top"
    campaign_message_box(yell)
    sleep(2000)
    close_story_messagebox()
-   sleep(2000)
    yell["body"] = p("I wonder when we will leave this...")
-   yell["position"] = "bottom"
+   yell["posx"] = window_center.x + 250
+   yell["posy"] = window_center.y
    let_it_snow = false
+   sleep(2000)
    campaign_message_box(yell)
    sleep(2000)
    close_story_messagebox()
-   sleep(6000)
-   yell["body"] = p("ARGGGHHHH")
-   yell["position"] = nil
-   yell["posx"] = window_center.x - 200
-   yell["posy"] = window_center.y - 200
-   campaign_message_box(yell)
-   ship_field.terr = "ice"
+   plr:hide_fields(map:get_field(122, 109):region(9), true)
+   -- snowy weather end, now move to dragon
+   -- here we need a ship
+   local ship_field = map:get_field(42,67)
+   local sea_fields = ship_field:region(9)
+   scroll_to_field(ship_field)
+   sleep(2000)
    local ship = plr:place_ship(ship_field)
+   ship_field.terr = "ice"             -- to let the ship move
    plr:reveal_fields(sea_fields)
-   sleep(1800)
-   close_story_messagebox()
-   ship:remove()
-   plr:hide_fields(sea_fields, true)
-   sleep(1000)
-   yell["posx"] = window_center.x + 200
-   yell["posy"] = window_center.y - 200
-   yell["body"] = p("Uih Uih UiH")
+   yell["body"] = p("Oh wow ...")
+   yell["posx"] = window_center.x - 200
+   yell["posy"] = window_center.y + 100
+   sleep(2000)
    campaign_message_box(yell)
-   ship = plr:place_ship(ship_field)
-   plr:reveal_fields(sea_fields)
-   sleep(2000)
+   sleep(3000)
    close_story_messagebox()
    ship:remove()
-   plr:hide_fields(sea_fields, true)
+   hide_concentric(plr, ship_field, 9)
+   -- remove dragon
+   local dragon_fields = map:get_field(44,63):region(5)
+   for i, f in ipairs(dragon_fields) do 
+      f.terr = "summer_water" 
+      f.terd = "summer_water"
+   end
    sleep(2000)
-   for i, f in ipairs(sea_fields) do
-      f.terr = "desert_water"
-      if i % 2 == 0 then
-         f.terd = "ice_floes"
+   local function _mystic_water()
+      function _water_tile(f)
+         sleep(math.random(200,1200))
+         f.terr = "summer_water"
       end
+      local water_fields = random_window_fields(60)
+      for i, field in ipairs(water_fields) do
+         field.terr = "desert_water"
+         sleep(500)
+         run(_water_tile, field)
+      end   
    end
-   ship_field.terr = "ice"
+   reveal_concentric(plr, ship_field, 9, false)
    ship = plr:place_ship(ship_field)
-   plr:reveal_fields(sea_fields)
-   sleep(1000)
-   ship:remove()
-   plr:hide_fields(sea_fields, true)
-   sleep(1000)
-   for i, f in ipairs(sea_fields) do
-      f.terr = "summer_water"
-      if i % 2 == 0 then
-         f.terd = "desert_water"
-      end
-   end
-   ship_field.terr = "ice"
-   ship = plr:place_ship(ship_field)
-   plr:reveal_fields(sea_fields)
-   sleep(1000)
-   ship:remove()
-   plr:hide_fields(sea_fields, true)
+   run(_mystic_water)
+   yell["posx"] = window_center.x 
+   yell["posy"] = window_center.y - 300
+   yell["body"] = p("What happens to the ocean??")
+   sleep(6000)
+   campaign_message_box(yell)
+   sleep(2000)
+   close_story_messagebox()
+   sleep(4000)
+   hide_concentric(plr, ship_field, 9)
+   
    scroll_to_map_pixel(home)
 end
 
@@ -606,7 +580,7 @@ function main_thread()
    reveal_concentric(plr, sf, 13)
    run(find_emerit)
    run(meet_mdm_auri)
-   --run(meet_poseidon)
+   run(meet_poseidon)
 end
 
 run(main_thread)

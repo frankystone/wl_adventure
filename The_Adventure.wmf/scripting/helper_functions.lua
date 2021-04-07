@@ -6,23 +6,27 @@ function window_center()
    return {x = math.floor(w.width/2), y = math.floor(w.height/2)}
 end
 
+math.randomseed(ticks())
+
 -- Return a randomized table of map fields depending 
 -- of the current mapview. 
--- amount spezifies how many fields will be returned  
+-- amount specifies how many fields will be returned  
 function random_window_fields(amount)
-   local w = wl.ui.MapView()
-   local x_fields = math.floor(w.width/64)
-   local y_fields = math.floor(w.height/32)
+   local center = wl.ui.MapView().center_map_pixel
    local fields = {}
    for x=0, wl.Game().map.width-1 do
       for y=0, wl.Game().map.height-1 do
          f = wl.Game().map:get_field(x,y)
          if wl.ui.MapView():is_visible(f) then
-            table.insert(fields, f)
+            -- Restrict the fields to an area of 800x600 pixels and make sure 
+            -- the area is in the center of the screen
+            if f.viewpoint_x > center.x - 400 and f.viewpoint_x < center.x + 400 and 
+               f.viewpoint_y > center.y - 300 and f.viewpoint_y < center.y + 300 then
+               table.insert(fields, f)
+            end
          end
       end
    end
-   math.randomseed(wl.Game().time)
    local random_fields = {}
    while #random_fields < amount do
       id = math.random(1, #fields)
@@ -151,14 +155,12 @@ function snow_flakes_start(amount)
    local window_fields = random_window_fields(amount)
    while let_it_snow == true do
       for i, field in ipairs(window_fields) do
-         if not plr:sees_field(field) then
-            field.terd = "snow"
-            field.trn.terd = "snow"
-            field.tln.terd = "snow"
-            plr:reveal_fields({field})
-            sleep(500)
-            run(snow_flake, field)
-         end
+         field.terd = "snow"
+         field.trn.terd = "snow"
+         field.tln.terd = "snow"
+         plr:reveal_fields({field})
+         sleep(500)
+         run(snow_flake, field)
       end
    end
 end

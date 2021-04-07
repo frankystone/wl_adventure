@@ -97,8 +97,8 @@ end
 yell_box = {title = "",
             body = p("Misty weather here"),
             modal = false,
-            w = 200,
-            h = 100,
+            w = 150,
+            h = 35,
             --posx = 0,
             --posy = 0
            }
