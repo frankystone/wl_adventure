@@ -91,7 +91,7 @@ function poseidon_box(t)
 end
 
 -- ####################
--- # yellbox in intro #
+-- # intro texts      #
 -- ####################
 
 yell_box = {title = "",
@@ -102,6 +102,43 @@ yell_box = {title = "",
             --posx = 0,
             --posy = 0
            }
+
+trailer_01 = {title="Trailer",
+                 body= div("width=100%", vspace(20) .. 
+                           p("align=center spacing=3", font("size=25", "WIDELANDS"))..
+                           p("align=center spacing=5", font("size=15", "presents"))),
+                  w=300,
+                  h=150}
+trailer_02 = {title="Trailer",
+                 body=div("width=100%", vspace(20) .. p("align=center", font("size=15", "a production of:"))),
+                  w=300,
+                  h=150
+                 }
+trailer_03 = {title="Trailer",
+                 body= div("width=100%", vspace(20) ..
+                           p("align=center spacing=3", font("size=20","kaputtnik"))..
+                           p("align=center spacing=5", font("size=15", "productions"))),
+                  w=300,
+                  h=150}
+trailer_04 = {title="Trailer",
+                 body= div("width=100%", vspace(20) ..
+                           p("align=center", font("size=25", "The Adventures of Captain Guybrush!"))),
+                  w=400,
+                  h=150}
+trailer_05 = {title="Trailer",
+                 body= div("width=100%", vspace(20)..
+                           p("align=center spacing=3", font("size=25", "You")) ..
+                           p("align=center spacing=3", font("size=15", "as")) ..
+                           p("align=center spacing=3", font("size=25", "Captain Guybrush!"))),
+                  w=400,
+                  h=200}
+trailer_06 = {title="Trailer",
+                 body= div("width=100%", vspace(20)..
+                           p("align=center spacing=3", font("size=25", "Have fun!"))),
+                  w=400,
+                  h=200}
+
+
 
 -- #####################
 -- The emeritus is found

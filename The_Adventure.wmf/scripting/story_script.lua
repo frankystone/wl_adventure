@@ -84,7 +84,12 @@ function intro()
    close_story_messagebox()
    sleep(4000)
    hide_concentric(plr, ship_field, 9)
-   
+   campaign_message_box(trailer_01, 1000)
+   campaign_message_box(trailer_02, 1000)
+   campaign_message_box(trailer_03, 1000)
+   campaign_message_box(trailer_04, 1000)
+   campaign_message_box(trailer_05, 1000)
+   campaign_message_box(trailer_06, 1000)
    scroll_to_map_pixel(home)
 end
 
