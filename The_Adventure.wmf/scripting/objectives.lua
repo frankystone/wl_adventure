@@ -56,3 +56,9 @@ obj_regatta = {
    title = "Win the sailing regatta against Poseidon",
    body = p("Sail the sea and try to build a port before Poseidon build it!")
    }
+
+obj_check_inventory = {
+   name = "check_inventory",
+   title = "Check Inventory",
+   body = p("Open the inventory to check the wares which were leftover from the incredible journey."),
+   }

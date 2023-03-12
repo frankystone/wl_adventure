@@ -1,11 +1,12 @@
-# Automatically created by Widelands 1.0~git25106[5482285@master] (Debug)
+# Automatically created by Widelands 1.2~git26091 (aef28ac@ware-prio-registry) Debug
 
 [global]
 packet_version="1"
 waterway_max_length="1"
-number_of_port_spaces="3"
+number_of_port_spaces="4"
 
 [port_spaces]
 0="114 13"
 1="106 18"
 2="72 52"
+3="75 70"

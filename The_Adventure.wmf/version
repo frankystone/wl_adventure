@@ -1,12 +1,12 @@
-# Automatically created by Widelands 1.0~git25106[5482285@master] (Debug)
+# Automatically created by Widelands 1.2~git26091 (aef28ac@ware-prio-registry) Debug
 
 [global]
 map_source_url=
 map_release=
 map_creator_version="bzr9047[trunk]"
 map_version_major="0"
-map_version_minor="8"
-map_version_timestamp="1609756983"
+map_version_minor="11"
+map_version_timestamp="1678310133"
 packet_version="1"
 packet_compatibility="1"
-needs_widelands_version_after="20"
+minimum_required_widelands_version="1.1"

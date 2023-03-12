@@ -46,7 +46,7 @@ function soldier_box(t)
    if not t["h"] then t["h"] = 200 end
    --if not t["posy"] then t["posy"] = 1 end
    --if not t["posx"] then t["posx"] = 400 end
-   if not t["position"] then t["position"] = "bottom" end
+   if not t["position"] then t["position"] = "top" end
    return t
 end
 
@@ -67,6 +67,7 @@ function guybr_box(t)
    --if not t["posy"] then t["posy"] = 1 end
    --if not t["posx"] then t["posx"] = 200 end
    if not t["position"] then t["position"] = "topleft" end
+   if t["posx"] then t["position"] = nil end
    return t
 end
 
@@ -90,53 +91,111 @@ function poseidon_box(t)
    return t
 end
 
--- ####################
--- # intro texts      #
--- ####################
-
-yell_box = {title = "",
+-- ###################
+-- #   intro texts   #
+-- ###################
+local window_center = window_center()
+intro_01 = {title = "",
             body = p("Misty weather here"),
             modal = false,
             w = 150,
             h = 35,
-            --posx = 0,
-            --posy = 0
+            posx= window_center.x -70,
+            posy= window_center.y + 300
+           }
+intro_02 = {title = "",
+            body = p("... and so dark ..."),
+            modal = false,
+            w = 150,
+            h = 35,
+            posx = window_center.x - 300,
+            posy= window_center.y - 300
+           }
+intro_03 = {title = "",
+            body = p("Does anyone know where we are?"),
+            modal = false,
+            w = 150,
+            h = 35,
+            posx = window_center.x - 300,
+            posy= window_center.y + 200
+           }
+intro_04 = {title = "",
+            body = p("I wonder when we will leave this..."),
+            modal = false,
+            w = 150,
+            h = 35,
+            posx = window_center.x + 250,
+            posy = window_center.y
+           }
+intro_05 = {title = "",
+            body = p("Oh wow ..."),
+            modal = false,
+            w = 150,
+            h = 35,
+            posx = window_center.x - 200,
+            posy = window_center.y + 100
+           }
+intro_06 = {title = "",
+            body = p("Such a mystic place!"),
+            modal = false,
+            w = 150,
+            h = 35,
+            posx = window_center.x,
+            posy = window_center.y - 300
            }
 
 trailer_01 = {title="Trailer",
-                 body= div("width=100%", vspace(20) .. 
-                           p("align=center spacing=3", font("size=25", "WIDELANDS"))..
-                           p("align=center spacing=5", font("size=15", "presents"))),
-                  w=300,
-                  h=150}
+              body=div("width=100%", vspace(20) .. 
+                       p("align=center spacing=3", font("size=25", "kaputttnik production"))..
+                       p("align=center spacing=5", font("size=15", "presents:"))
+                       ),
+              w=300,
+              h=200}
 trailer_02 = {title="Trailer",
-                 body=div("width=100%", vspace(20) .. p("align=center", font("size=15", "a production of:"))),
+              body=div("width=100%", vspace(20) .. 
+                     p("align=center", font("size=15", "in cooperation"))..
+                     p("align=center", font("size=15", "with:"))
+                          ),
                   w=300,
-                  h=150
+                  h=200
                  }
 trailer_03 = {title="Trailer",
                  body= div("width=100%", vspace(20) ..
-                           p("align=center spacing=3", font("size=20","kaputtnik"))..
-                           p("align=center spacing=5", font("size=15", "productions"))),
-                  w=300,
-                  h=150}
+                           p("align=center spacing=3", font("size=20","WIDELANDS"))..
+                           p("align=center spacing=5", font("size=15", "a never ending development"))
+                          ),
+                  w=400,
+                  h=200
+                  }
 trailer_04 = {title="Trailer",
                  body= div("width=100%", vspace(20) ..
-                           p("align=center", font("size=25", "The Adventures of Captain Guybrush!"))),
+                           p("align=center", font("size=25 shadow=true", "The Adventures of Captain Guybrush!"))
+                          ),
                   w=400,
-                  h=150}
+                  h=150
+            }
 trailer_05 = {title="Trailer",
+                 body= div("width=100%", vspace(20)..
+                           p("align=center spacing=3", font("size=15", "Starring:"))
+                          ),
+                  w=400,
+                  h=150
+            }
+trailer_06 = {title="Trailer",
                  body= div("width=100%", vspace(20)..
                            p("align=center spacing=3", font("size=25", "You")) ..
                            p("align=center spacing=3", font("size=15", "as")) ..
-                           p("align=center spacing=3", font("size=25", "Captain Guybrush!"))),
+                           p("align=center spacing=3", font("size=25", "Captain Guybrush!"))
+                          ),
                   w=400,
                   h=200}
-trailer_06 = {title="Trailer",
+trailer_07 = {title="Trailer",
                  body= div("width=100%", vspace(20)..
-                           p("align=center spacing=3", font("size=25", "Have fun!"))),
+                           p("align=center spacing=3", font("size=25", "Have fun!"))
+                          ),
                   w=400,
-                  h=200}
+                  h=150
+            }
 
 
 
@@ -292,22 +351,46 @@ emerit_no_medium_building = emerit_box({
 })
 
 
--- ###########
---  No planks 
--- ###########
-no_planks = soldier_box({
-   body = objective_text("Captain Guybrush!",
-         "We are running out of planks!"),
+-- ################
+--  Check inventory
+-- ################
+guybrush_check_inventory1 = guybr_box({
+   body = objective_text("What a journey!",
+         "Fortunately we stranded on this island"
+         .. paragraphdivider() ..
+         "But so many of our crew members are lost ..."
+         .. paragraphdivider() ..
+         "I wonder if we should check which wares were leftover."
+         .. paragraphdivider() ..
+         "Hey, can somebody check our inventory?"
+         ),
 })
 
-guybrush_no_planks = guybr_box({
-   body = objective_text("Oh my good, my crew is just a mess!",
-         "We should build a sawmill as soon as possible!"..
-         "And we may have to raise down some other buildings to get enough wares to build it"
-         .. paragraphdivider() ..
-         i("Must i really think of all?")),
-   h = 170,
+soldier_check_inventory = soldier_box({
+   body = objective_text("Captain Guybrush?",
+         "I am sorry, but there is only one person who has the key for the ware depot..."
+   )
 })
+
+guybrush_check_inventory2 = guybr_box({
+   body = objective_text("Damn",
+         "Why must i do everything for myself?"
+         ),
+      h = 170,
+})
+
+guybrush_check_inventory3 = guybr_box({
+   body = objective_text("Oh, hmmm...",
+         "We have only 3 granite, 4 planks and 4 logs left."
+         .. paragraphdivider() ..
+         "We should be careful with new buildings until we have a sawmill."
+         .. paragraphdivider() ..
+         "And we may have to raise down some other buildings to get enough wares to build it."
+         ),
+         posx = 200,
+         posy = 1,
+})
+
 
 -- #################
 -- # Found passage #
@@ -518,7 +601,7 @@ guybrush_ubu_t_02 = guybr_box({
 
 uburulu_t_02 = ubu_box({
    body = ubu_speech("", asterisk("rushing").."An amulet??"..
-   "No" .. asterisk("crackling") .. "not here...")
+                     "No" .. asterisk("crackling") .. "not here...")
 })
 
 guybrush_ubu_t_03 = guybr_box({
@@ -732,21 +815,35 @@ uburulu_after_pray_02 = ubu_box({
 
 guybrush_ubu_after_pray_01 = guybr_box({
    body = objective_text(i("* wow *"),
-         "Now we have some place to breed some donkys for Ubururlu!"),
+         "Now we have some place to breed some donkeys for Uburulu!"),
    h = 150,
 })
 
+guybrush_ubu_after_pray_02 = guybr_box({
+   body = objective_text(b("Really nice!"),
+         "Many thanks for your help!"),
+   h = 150,
+})
+
+uburulu_after_pray_03 = ubu_box({
+   body = ubu_speech("You're welcome",
+         "But remember your promise!"
+         ..paragraphdivider()..
+         "Really!"
+         ..paragraphdivider()..
+         "Good luck..."),
+         position = "topright",
+})
 -- ################
 -- Breeding donkeys
 uburulu_thanks_01 = ubu_box({
    body = ubu_speech("Hey, thanks for the donkey",
          "I will praise to keep the land ..."),
-   position = "topright",
 })
 
 uburulu_thanks_02 = ubu_box({
-  body = ubu_speech("Many thanks for the donkeys."
-                    , "We have enough now ..."),
+  body = ubu_speech("Many thanks for the donkeys.",
+                    "We have enough now ..."),
   })
 
 guybrush_donkeys_02 = guybr_box({
@@ -798,7 +895,7 @@ uburulu_thanks_08 = ubu_box({
    body = ubu_no_speech("That's an evil place."
                      .. paragraphdivider()..
                     "This valley is occupied by a real freak... he has a lot force to control the ocean and we "
-                    .. "don't want him to be angry with us."),
+                    .. "don't want him to get angry with us."),
    })
 
 guybrush_donkeys_06 = guybr_box({
@@ -834,6 +931,12 @@ uburulu_thanks_11 = ubu_box({
                      "You have to swear not to say that i had helped you!"),
     })
 
+guybrush_donkeys_09 = guybr_box({
+   body = objective_text("Of course"),
+         "They call me also Captain Guybrush," ..
+         "King of the promises!"),
+   h = 150,
+   })
 
 -- ################
 -- Place scouts hut
@@ -965,7 +1068,7 @@ poseidon_regatta_01 = poseidon_box({
   body = p("I see you have managed to build a .. hmm ... what is that? ")
 })
 
--- Message of Guybrush is in story_script.lua
+-- Message of Guybrush is in story_script.lua because we need to show the ship
 
 poseidon_regatta_02 = poseidon_box({
   body = p("Haha, lets see if you could win the race with that canoe."
@@ -991,3 +1094,15 @@ poseidon_regatta_20 = poseidon_box({
 poseidon_warn_01 = poseidon_box{
   body = p("You have cheated! I am sorry but in this case you have lost the race and your ship!")
 }
+
+-- ################
+-- General messages
+cheat_01 = emerit_box({
+   body = emeritus(" ... hihihi ...",
+   "You have tried to cheat ... hihihi"
+   .. paragraphdivider()..
+   "You shouldn't do that, because ... hihohi... this island has a lot of magic. " ..
+   "And this island doesn't like cheating... hihihi."
+   ),
+   position = "center",
+})

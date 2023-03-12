@@ -1,4 +1,4 @@
-# Automatically created by Widelands 1.0~git25106[5482285@master] (Debug)
+# Automatically created by Widelands 1.2~git26091 (aef28ac@ware-prio-registry) Debug
 
 [global]
 packet_version="2"
@@ -8,21 +8,29 @@ name="Guybrush"
 tribe="empire"
 ai=
 closeable="false"
+team="0"
+random="false"
 
 [player_2]
 name="Uburulu"
 tribe="barbarians"
 ai="empty"
 closeable="false"
+team="0"
+random="false"
 
 [player_3]
 name="Madame Auri"
 tribe="empire"
 ai="empty"
 closeable="false"
+team="0"
+random="false"
 
 [player_4]
 name="Poseidon"
 tribe="atlanteans"
 ai=
 closeable="false"
+team="0"
+random="false"

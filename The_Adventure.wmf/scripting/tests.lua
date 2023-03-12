@@ -1,10 +1,9 @@
--- Some tests which can be run through the debug console in a
--- debug build.
+-- Some tests which can be run through the debug console.
 -- Note: 
 -- Some functions need to be run as a coroutine
--- Some functions need commenting starting coroutines in story_script.lua
+-- Some functions need commenting out functions in story_script.lua
 
--- Helping function
+-- Helper function
 pbr = function(x,y, building, opts)
    return place_building_in_region(plr, building, {map:get_field(x,y)}, opts)
 end
@@ -14,7 +13,21 @@ function test_old_man()
    connected_road("normal", plr, sentry.flag, "l,l|l,l|bl,l|l,l")
 end
 
-function test_scout()
+-- run(test_buildscout)
+function test_buildscout()
+   run(build_scout)
+   local scout_hut = pbr(29,26, "empire_scouts_house")
+   while map:get_field(29,26).immovable do
+      sleep(1000)
+   end
+   scout_hut = pbr(29,24, "empire_scouts_house")
+   while map:get_field(29,24).immovable do
+      sleep(1000)
+   end
+   scout_hut = pbr(31,29, "empire_scouts_house")
+end
+
+function test_find_translation_shell()
    local scout = pbr(31,29, "empire_scouts_house", {inputs = {ration=2}})
    local f = map:get_field(28,24)
    plr:conquer(f,6)

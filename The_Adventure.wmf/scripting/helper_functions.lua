@@ -6,6 +6,7 @@ function window_center()
    return {x = math.floor(w.width/2), y = math.floor(w.height/2)}
 end
 
+print("set randomseed")
 math.randomseed(ticks())
 
 -- Return a randomized table of map fields depending 

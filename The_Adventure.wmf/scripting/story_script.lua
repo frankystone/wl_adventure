@@ -1,65 +1,51 @@
 function intro()
-   local window_center = window_center()
    local home = scroll_to_field(map:get_field(122,109))
    -- Snowy weather
-   local nr = 30
    sleep(1500)
-   run(snow_flakes_start, nr)
-   local yell = yell_box
-   yell["posx"] = window_center.x -70
-   yell["posy"] = window_center.y + 300
-   sleep(2000)
-   campaign_message_box(yell)
-   sleep(2000)
+   run(snow_flakes_start, 30)
+   sleep(4000)
+   campaign_message_box(intro_01)
+   sleep(4000)
    close_story_messagebox()
-   yell["body"] = p("... and so dark ...")
-   yell["posx"] = window_center.x - 300
-   yell["posy"] = window_center.y - 300
-   sleep(2000)
-   campaign_message_box(yell)
-   sleep(2000)
+   sleep(4000)
+   campaign_message_box(intro_02)
+   sleep(4000)
    close_story_messagebox()
-   yell["body"] = p("Does anyone know where we are?")
-   yell["posx"] = window_center.x - 300
-   yell["posy"] = window_center.y + 200
-   sleep(2000)
-   campaign_message_box(yell)
-   sleep(2000)
+   sleep(4000)
+   campaign_message_box(intro_03)
+   sleep(4000)
    close_story_messagebox()
-   yell["body"] = p("I wonder when we will leave this...")
-   yell["posx"] = window_center.x + 250
-   yell["posy"] = window_center.y
-   let_it_snow = false
-   sleep(2000)
-   campaign_message_box(yell)
-   sleep(2000)
+   let_it_snow = false                 -- stop coroutine
+   sleep(5000)
+   campaign_message_box(intro_04)
+   sleep(4000)
    close_story_messagebox()
-   plr:hide_fields(map:get_field(122, 109):region(9), true)
+   plr:hide_fields(map:get_field(122, 109):region(13), "explorable")
+   sleep(1000)
    -- snowy weather end, now move to dragon
    -- here we need a ship
    local ship_field = map:get_field(42,67)
    local sea_fields = ship_field:region(9)
    scroll_to_field(ship_field)
    sleep(2000)
+   -- plr:hide_fields(sea_fields, "permanent")
    local ship = plr:place_ship(ship_field)
    ship_field.terr = "ice"             -- to let the ship move
    plr:reveal_fields(sea_fields)
-   yell["body"] = p("Oh wow ...")
-   yell["posx"] = window_center.x - 200
-   yell["posy"] = window_center.y + 100
+   campaign_message_box(intro_05)
    sleep(2000)
-   campaign_message_box(yell)
-   sleep(3000)
    close_story_messagebox()
+   hide_concentric(plr, ship_field, 9, 100, true)
    ship:remove()
-   hide_concentric(plr, ship_field, 9)
+   --plr:hide_fields(sea_fields, "explorable")
+   sleep(1000)
    -- remove dragon
    local dragon_fields = map:get_field(44,63):region(5)
    for i, f in ipairs(dragon_fields) do 
       f.terr = "summer_water" 
       f.terd = "summer_water"
    end
-   sleep(2000)
+   sleep(1000)
    local function _mystic_water()
       function _water_tile(f)
          sleep(math.random(200,1200))
@@ -72,24 +58,24 @@ function intro()
          run(_water_tile, field)
       end   
    end
-   reveal_concentric(plr, ship_field, 9, false)
-   ship = plr:place_ship(ship_field)
    run(_mystic_water)
-   yell["posx"] = window_center.x 
-   yell["posy"] = window_center.y - 300
-   yell["body"] = p("What happens to the ocean??")
+   ship = plr:place_ship(ship_field)
+   reveal_concentric(plr, ship_field, 9)
    sleep(6000)
-   campaign_message_box(yell)
-   sleep(2000)
+   campaign_message_box(intro_06)
+   sleep(4000)
    close_story_messagebox()
    sleep(4000)
-   hide_concentric(plr, ship_field, 9)
+   hide_concentric(plr, ship_field, 9, 100, true)
+   sleep(2000)
+   -- Intro has ended, now we show trailer
    campaign_message_box(trailer_01, 1000)
    campaign_message_box(trailer_02, 1000)
    campaign_message_box(trailer_03, 1000)
    campaign_message_box(trailer_04, 1000)
    campaign_message_box(trailer_05, 1000)
    campaign_message_box(trailer_06, 1000)
+   campaign_message_box(trailer_07, 1000)
    scroll_to_map_pixel(home)
 end
 
@@ -115,8 +101,8 @@ function find_emerit()
    campaign_message_box(guybrush_06, 400)
    campaign_message_box(emerit_07, 400)
    scroll_to_map_pixel(sf)
-   campaign_message_box(no_planks, 400)
-   campaign_message_box(guybrush_no_planks)
+   --campaign_message_box(no_planks, 400)
+   --campaign_message_box(guybrush_no_planks)
    set_speed(speed)
    run(find_amulet)
    run(build_sawmill)
@@ -271,16 +257,22 @@ function breed_donkeys()
 
    -- Give Uburulu 10 Donkeys
    local nr_donkeys_uburulu = 0
+   local time = wl.Game().time
    while nr_donkeys_uburulu < 10 do
-      sleep(100000)
+      sleep(2000)
       nr_donkeys = hq:get_workers("empire_donkey")
       if nr_donkeys > 0 then
          hq:set_workers("empire_donkey", 0)
          campaign_message_box( uburulu_thanks_01)
          nr_donkeys_uburulu = nr_donkeys_uburulu + 1
       else
-         print('Turn back field: ', fields[4])
-         random_raise(fields[4]:region(1), "summer_water", -1)
+         if time == time + 10000 then
+            print('Turn back field: ', fields[4])
+            fields[4].terr = "summer_water"
+            fields[4].terd = "summer_water"
+            fields[4].height = 10
+            table.remove(fields, 4)
+         end
       end
    end
    o.done = true
@@ -305,6 +297,48 @@ function connect_north_valley()
    campaign_message_box(uburulu_thanks_10, 1000)
    campaign_message_box(guybrush_donkeys_08, 1000)
    campaign_message_box(uburulu_thanks_11, 1000)
+   -- uburulu: ok then
+   local fields = {map:get_field(31, 120), -- d
+                   map:get_field(32, 120), -- r+d
+                   map:get_field(32, 119), -- r+d
+                   map:get_field(33, 119), -- d
+                   map:get_field(33, 120), -- r+d
+                   map:get_field(34, 120), -- d
+                   map:get_field(34, 119), -- r
+                   map:get_field(35, 119) -- d
+                   }
+   local f = scroll_to_field(map:get_field(30,120)
+   campaign_message_box(guybrush_ubu_pray_01, 1000)
+   map:get_field(31, 120).terd == "summer_meadow1"
+   sleep(500)
+   campaign_message_box(uburulu_pray_01)
+   map:get_field(31, 120).terd = "summer_meadow1"
+   sleep(500)
+   map:get_field(35, 119).terd = "summer_meadow1"
+   sleep(500)
+   map:get_field(34, 119).terr = "summer_meadow1"
+   campaign_message_box(uburulu_pray_02)
+   map:get_field(34, 120).terr = "summer_meadow1"
+   sleep(500)
+   map:get_field(34, 120).terd = "summer_meadow1"
+   sleep(500)
+   map:get_field(33, 120).tln.terr = "summer_meadow1"
+   sleep(500)
+   map:get_field(33, 120).tln.terd = "summer_meadow1"
+   campaign_message_box(uburulu_pray_04)
+   map:get_field(33, 120).trn.terd = "summer_meadow1"
+   sleep(500)
+   map:get_field(33, 120).ln.terr = "summer_meadow1"
+   sleep(500)
+   map:get_field(33, 120).ln.terd = "summer_meadow1"
+   sleep(500)
+   map:get_field(33, 120).terr = "summer_meadow1"
+   sleep(500)
+   map:get_field(33, 120).terd = "summer_meadow1"
+   campaign_message_box(uburulu_after_pray_01)
+   campaign_message_box(guybrush_ubu_after_pray_02)
+   campaign_message_box(uburulu_after_pray_03)
+   
 end
 
 function find_amulet()
@@ -320,28 +354,20 @@ end
 function build_scout()
    print("starting build_scout")
    local o = add_campaign_objective(obj_build_scout)
-   local solved = false
-   local wrong_fields = {map:get_field(25,19),
-                         map:get_field(26,23),
-                         map:get_field(29,24),
-                         map:get_field(29,26),
-   }
    local right_field = map:get_field(31,29)
 
-   while not solved do
-      for i, v in ipairs(wrong_fields) do
-         if v.immovable and v.immovable.building == "empire_scouts_house" then
+   while not o.done do
+      local scouts_huts = plr:get_buildings("empire_scouts_house")
+      if #scouts_huts == 1 then
+         if scouts_huts[1].fields[1] ~= right_field then
             campaign_message_box(guybrush_scout_hut_01, 1000)
-            v.immovable.flag:remove()
+            scouts_huts[1].flag:remove()
+         else
+            o.done = true
          end
-      end
-      -- .descr.name is the right string after the building is completed
-      if right_field.immovable and right_field.immovable.descr.name == "empire_scouts_house" then
-         solved = true
       end
       sleep(1000)
    end
-   o.done = true
    run(find_translation_shell)
 end
 
@@ -349,38 +375,15 @@ function find_translation_shell()
    print("Start finding translation shell")
    local o = add_campaign_objective(obj_find_translation_shell)
    local t_shell = map:get_field(33,48) -- the translation shell
-   local fake_shells = {map:get_field(31,36),
+   local fake_shells = {map:get_field(31,38),
                         map:get_field(26,40),
                         map:get_field(41,45),
                         map:get_field(42,33)}
 
-   while o.done == false do
+   while #fake_shells ~= 0 do
       -- find the translation shell only after all other places are found
-      if fake_shells[1] == nil then
-         print("No shells left, find the right one")
-         -- make sure there is no other immovable
-         -- on that field
-         local map_obj = t_shell.immovable
-         if map_obj and map_obj.descr.name ~= "skeleton2" then
-            map_obj:remove()
-         end
-         -- find the right shell
-         if plr:sees_field(t_shell) then
-            map:place_immovable("skeleton2", t_shell, "world")
-            local speed = check_speed()
-            local cur_f = wait_for_roadbuilding_and_scroll(t_shell)
-            campaign_message_box(found_shell)
-            campaign_message_box(guybrush_check_translation)
-            campaign_message_box(found_translation)
-            campaign_message_box(guybrush_found_translation)
-            o.done = true
-            scroll_to_map_pixel(cur_f)
-            set_speed(speed)
-         end
-      end
       for i, field in ipairs(fake_shells) do
          if field and plr:sees_field(field) then
-            print("found shell at: ", field)
             local speed = check_speed()
             cur_f = wait_for_roadbuilding_and_scroll(field)
             campaign_message_box(found_shell)
@@ -393,12 +396,35 @@ function find_translation_shell()
             table.remove(fake_shells, i) -- Don't catch this field twice
             set_speed(speed)
          end
+         -- Maybe we ran out of rations before we have found the right shell
+         -- make sure there is at least one ration in the headquarters
+         if hq:get_wares("ration") == 0 then
+            print("No ration left, add one.")
+            hq:set_wares("ration", 1)
+         end
       end
-      -- Maybe we ran out of rations before we have found the right shell
-      -- make sure there is at least one ration in the headquarters
-      if hq:get_wares("ration") == 0 then
-         print("No ration left, add one.")
-         hq:set_wares("ration", 1)
+      sleep(1000)
+   end
+   
+   while not o.done do
+      -- find the right shell
+      if plr:sees_field(t_shell) then
+         -- make sure there is no other immovable
+         -- on that field, e.g. a tree
+         local map_obj = t_shell.immovable
+         if map_obj and map_obj.descr.name ~= "skeleton2" then
+            map_obj:remove()
+         end
+         map:place_immovable("skeleton2", t_shell)
+         local speed = check_speed()
+         local cur_f = wait_for_roadbuilding_and_scroll(t_shell)
+         campaign_message_box(found_shell)
+         campaign_message_box(guybrush_check_translation)
+         campaign_message_box(found_translation)
+         campaign_message_box(guybrush_found_translation)
+         o.done = true
+         scroll_to_map_pixel(cur_f)
+         set_speed(speed)
       end
       sleep(1000)
    end
@@ -409,7 +435,14 @@ function find_passage()
    local o = add_campaign_objective(obj_find_passage)
    local f = map:get_field(29,10)
    local medium_clicked = 0
+   local cheated = false
    while not ( f.owner == plr ) do
+      if #plr:get_buildings("empire_sawmill") == 1 then
+         campaign_message_box(cheat_01)
+         o.done = true
+         cheated = true
+         break
+      end
       wl.Game().allow_saving = false
       local w = wl.ui.MapView().windows.field_action
       if w and w.tabs.medium then
@@ -430,11 +463,16 @@ function find_passage()
       end
       sleep(500)
    end
-   wait_for_roadbuilding_and_scroll(f)
-   sleep(1000)
-   campaign_message_box(emerit_found_passage)
-   o.done = true
-   run(wobble_fields)
+   if not cheated then
+      wait_for_roadbuilding_and_scroll(f)
+      sleep(1000)
+      campaign_message_box(emerit_found_passage)
+      o.done = true
+      run(wobble_fields)
+   else
+      scroll_to_field(sf)
+      sf.immovable:destroy()
+   end
 end
 
 function meet_mdm_auri()
@@ -497,7 +535,7 @@ function meet_poseidon()
    run(prepare_ship)
 end
 
-function perpare_ship()
+function prepare_ship()
    local o = add_campaign_objective(obj_build_ship)
    -- As long we have no ship we do nothing
    while #plr:get_ships() < 1 do
@@ -516,8 +554,8 @@ function perpare_ship()
          img("tribes/ships/empire/sail_e_00.png")
          .. paragraphdivider() ..
          "With this ship i will win the regatta!"),
-         posy = 1,
-         posx = 1,
+         --posy = 1,
+         --posx = 1,
          w = 300,
          h = 320,
    })
@@ -578,11 +616,36 @@ function regatta(plr_ship)
    end
 end
 
+function stranded()
+   -- Check inventory
+   sleep(5000)
+   local o = add_campaign_objective(obj_check_inventory)
+   campaign_message_box(guybrush_check_inventory1)
+   sleep(500)
+   campaign_message_box(soldier_check_inventory)
+   sleep(500)
+   campaign_message_box(guybrush_check_inventory2)
+   while not o.done do
+      sleep(1000)
+      wl.Game().allow_saving = false
+      local w = wl.ui.MapView().windows.stock_menu
+      if w then
+         o.done = true
+      end
+      w = nil
+      wl.Game().allow_saving = true
+   end
+   sleep(2000)
+   campaign_message_box(guybrush_check_inventory3)
+end
+
 function main_thread()
-   intro()
-   -- Needs to be included here,otherwise the payer sees to many of the map 
+   --intro()
+   -- Needs to be included here,otherwise the payer sees to many of the map
+   plr:hide_fields(sf:region(13), "permanent")
    include "map:scripting/starting_conditions.lua"
    reveal_concentric(plr, sf, 13)
+   run(stranded)
    run(find_emerit)
    run(meet_mdm_auri)
    run(meet_poseidon)
